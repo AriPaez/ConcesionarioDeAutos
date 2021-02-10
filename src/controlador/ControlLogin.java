@@ -21,7 +21,7 @@ public class ControlLogin implements ActionListener {
 		
 		if(botonSeleccionado==login.getLogin())
 		{
-			
+				
 		}
 		else
 		{

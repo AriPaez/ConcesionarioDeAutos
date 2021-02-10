@@ -1,11 +1,20 @@
+CREATE TABLE secretario
+(
+	dniSecretario VARCHAR(8) PRIMARY KEY NOT NULL,
+	contrasenia VARCHAR(30) NOT NULL
+)
+
 CREATE TABLE cliente
 (
 	dniCliente VARCHAR(8) PRIMARY KEY NOT NULL,
+	dniSecretario VARCHAR(8) NOT NULL,
 	primerNombre VARCHAR(20) NOT NULL,
 	segundoNombre VARCHAR(20),
 	apellido VARCHAR(20) NOT NULL,
 	direccion VARCHAR(30) NOT NULL,
-	teléfono VARCHAR(10) NOT NULL
+	teléfono VARCHAR(10) NOT NULL,
+
+	FOREIGN KEY(dniSecretario) REFERENCES secretario(dniSecretario)
 )
 
 CREATE TABLE taller
@@ -18,13 +27,15 @@ CREATE TABLE mecanico
 (
 	dniMecanico VARCHAR(8) PRIMARY KEY NOT NULL,
 	idCodigoTaller INT  NOT NULL,
+	dniSecretario VARCHAR(8) NOT NULL,
 	primerNombre VARCHAR(20) NOT NULL,
 	segundoNombre  VARCHAR(20),
 	apellido VARCHAR(20) NOT NULL,
 	fechaContratacion VARCHAR(30) NOT NULL,
 	salario FLOAT
 
-	FOREIGN KEY(idCodigoTaller) REFERENCES taller(idCodigoTaller)
+	FOREIGN KEY(idCodigoTaller) REFERENCES taller(idCodigoTaller),
+	FOREIGN KEY(dniSecretario) REFERENCES secretario(dniSecretario)
 )
 
 CREATE TABLE autoMovil

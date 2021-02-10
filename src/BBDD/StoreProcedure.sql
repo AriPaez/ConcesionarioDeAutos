@@ -1,0 +1,9 @@
+--Verificacion de login.
+CREATE PROCEDURE verificarLogin(@dniUsuario VARCHAR(8))
+AS
+BEGIN TRY
+	IF EXISTS (SELECT FROM )
+END TRY
+BEGIN CATCH
+
+END CATCH
