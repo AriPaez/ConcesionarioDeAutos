@@ -3,18 +3,23 @@ import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
 import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+import controlador.ControlSecretario;
  
 
 public class RegistroSecretario extends JFrame {
+	
 	private JTextField dni;
-	private JPasswordField contrasenia;
-
+	private JPasswordField password;
+	private JButton cancelar;
+	private JButton registrarse;
+	
 	public RegistroSecretario()
 	{
 		getContentPane().setLayout(null);
@@ -27,29 +32,29 @@ public class RegistroSecretario extends JFrame {
 		getContentPane().add(laminaPrincipal);
 		laminaPrincipal.setLayout(null);
 		
-		contrasenia = new JPasswordField();
-		contrasenia.setBounds(181, 159, 173, 20);
-		laminaPrincipal.add(contrasenia);
+		password = new JPasswordField();
+		password.setBounds(181, 159, 173, 20);
+		laminaPrincipal.add(password);
 		
-		JButton labelCancelar = new JButton("CANCELAR");
-		labelCancelar.setBackground(Color.GRAY);
-		labelCancelar.setForeground(Color.WHITE);
-		labelCancelar.setFont(new Font("Arial", Font.BOLD, 12));
-		labelCancelar.setBounds(213, 257, 109, 23);
-		laminaPrincipal.add(labelCancelar);
+		cancelar = new JButton("CANCELAR");
+		cancelar .setBackground(Color.GRAY);
+		cancelar .setForeground(Color.WHITE);
+		cancelar .setFont(new Font("Arial", Font.BOLD, 12));
+		cancelar .setBounds(213, 257, 109, 23);
+		laminaPrincipal.add(cancelar );
 		
-		JButton registrarse = new JButton("REGISTRARSE");
+		registrarse = new JButton("REGISTRARSE");
 		registrarse.setBackground(Color.GRAY);
 		registrarse.setForeground(Color.WHITE);
 		registrarse.setFont(new Font("Arial", Font.BOLD, 12));
 		registrarse.setBounds(47, 257, 135, 23);
 		laminaPrincipal.add(registrarse);
 		
-		JLabel labelContrasenia = new JLabel("CONTRASE\u00D1A");
-		labelContrasenia.setForeground(Color.WHITE);
-		labelContrasenia.setFont(new Font("Arial", Font.BOLD, 20));
-		labelContrasenia.setBounds(18, 156, 153, 20);
-		laminaPrincipal.add(labelContrasenia);
+		JLabel labelPassword = new JLabel("CONTRASE\u00D1A");
+		labelPassword.setForeground(Color.WHITE);
+		labelPassword.setFont(new Font("Arial", Font.BOLD, 20));
+		labelPassword.setBounds(18, 156, 153, 20);
+		laminaPrincipal.add(labelPassword);
 		
 		JLabel labelDNI = new JLabel("DNI");
 		labelDNI.setFont(new Font("Arial", Font.BOLD, 20));
@@ -74,5 +79,46 @@ public class RegistroSecretario extends JFrame {
 		fondoRegistro.setBounds(0, 0, 364, 305);
 		laminaPrincipal.add(fondoRegistro);
 		
+		ControlSecretario cS=new ControlSecretario(this);
+		
+		//Eventos botones.
+		this.cancelar.addActionListener(cS);
+		this.registrarse.addActionListener(cS);
+		
 	}
+
+	public String getDni() {
+		return dni.getText();
+	}
+
+	public void setDni(String dni) {
+		this.dni.setText(dni);;
+	}
+
+	public String getPassword() {
+		
+		char[] arrayC = this.password.getPassword();
+		return  new String(arrayC);
+	}
+
+	public void setPassword(String password) {
+		this.password.setText(password);;
+	}
+
+	public JButton getCancelar() {
+		return cancelar;
+	}
+
+	public void setCancelar(JButton cancelar) {
+		this.cancelar = cancelar;
+	}
+
+	public JButton getRegistrarse() {
+		return registrarse;
+	}
+
+	public void setRegistrarse(JButton registrarse) {
+		this.registrarse = registrarse;
+	}
+ 
 }

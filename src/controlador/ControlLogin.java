@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
-import modelo.LoginAdministrador;
+import modelo.BBDDSecretario;
 import vista.Login;
 import vista.RegistroSecretario;
 import vista.VentanaSecretario;
@@ -27,8 +27,7 @@ public class ControlLogin implements ActionListener {
 		if(botonSeleccionado==login.getLogin())
 		{
 				  
-				LoginAdministrador lA=
-				new LoginAdministrador(login);
+				BBDDSecretario lA=new BBDDSecretario(login);
 				
 				//Si esta registrado el secretario ==> se abre 
 				//la ventanaSecretario.
@@ -41,8 +40,7 @@ public class ControlLogin implements ActionListener {
 				
 		}
 		else
-		{
-			
+		{	
 				//Cierre de la ventana login
 				login.dispose();
 				//Apertura de la ventana RegistroSecretario.

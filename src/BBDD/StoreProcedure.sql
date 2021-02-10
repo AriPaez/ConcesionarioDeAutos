@@ -1,5 +1,5 @@
 --Verificacion de login.
-CREATE PROCEDURE verificarLoginSecretario(@dniSecretario VARCHAR(8))
+ALTER PROCEDURE verificarLoginSecretario(@dniSecretario VARCHAR(8))
 AS
 BEGIN TRY
 	IF NOT EXISTS (SELECT dniSecretario FROM secretario WHERE dniSecretario=@dniSecretario)
@@ -22,3 +22,25 @@ END CATCH
 --ejecucion del procedimiento.
 
 EXEC verificarLoginSecretario '67576867'
+
+--Registrar secretario.
+ALTER PROCEDURE registrarSecretario(@dniSecretario VARCHAR(8),@password VARCHAR(30))
+AS
+BEGIN TRY
+	INSERT INTO [dbo].[secretario]
+			   ([dniSecretario]
+			   ,[contrasenia])
+		 VALUES(@dniSecretario,
+			   @password)
+END TRY
+BEGIN CATCH
+	
+	throw 500000,'¡Error. No se ha podido registrar!',1
+
+END CATCH
+
+--Ejecucio del procedimiento.
+
+EXEC registrarSecretario '34234354','1234'
+
+ 
