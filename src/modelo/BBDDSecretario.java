@@ -31,17 +31,18 @@ public class BBDDSecretario {
 	}
 
 	
-	public boolean existenciaSecretario()
+	public boolean iniciarSesion()
 	{
 		
 		try 
 		{
-			CallableStatement verificarLoginSecretario=conexionBBDD.getConexionBBDD().
-			prepareCall("{call verificarLoginSecretario(?)}");
+			CallableStatement iniciarSesion=conexionBBDD.getConexionBBDD().
+			prepareCall("{call iniciarSesion(?,?)}");
 			
-			verificarLoginSecretario.setString(1,login.getDni());
+			iniciarSesion.setString(1,login.getDni());
+			iniciarSesion.setString(2,login.getPassword());
 			
-			ResultSet tabla=verificarLoginSecretario.executeQuery();
+			ResultSet tabla=iniciarSesion.executeQuery();
 			
 			//Si existe usuario ==> existe filas en el ResultSet.
 			//por lo que retorna true.
@@ -53,7 +54,7 @@ public class BBDDSecretario {
 			 
 			JOptionPane.showMessageDialog(null,e.getMessage(), "ERROR", 2, null);
 			
-			//Reseto de JTexField dni y password.
+			//Reseteo de JTexField dni y password.
 			login.setDni("");
 			login.setPassword("");
 		}
@@ -62,7 +63,7 @@ public class BBDDSecretario {
 		return false;
 	}
 	
-	public void registrarSecretario( )
+	public void registrarSecretario()
 	{
 		try 
 		{

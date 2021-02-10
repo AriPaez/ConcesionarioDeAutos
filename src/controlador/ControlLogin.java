@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import modelo.BBDDSecretario;
 import vista.Login;
@@ -31,8 +32,15 @@ public class ControlLogin implements ActionListener {
 				
 				//Si esta registrado el secretario ==> se abre 
 				//la ventanaSecretario.
-				if(lA.existenciaSecretario())
+				if(lA.iniciarSesion())
 				{
+					
+					JOptionPane.showMessageDialog(null,"Iniciado Correctamente", "Acceso", 
+					1, null);
+
+					//Cierre de la ventana login
+					login.dispose();
+					//Apertura de la VentanaSecretario.
 					VentanaSecretario vS=new VentanaSecretario();
 					vS.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					vS.setVisible(true);

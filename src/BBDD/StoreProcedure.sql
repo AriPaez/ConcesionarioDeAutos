@@ -1,14 +1,14 @@
 --Verificacion de login.
-ALTER PROCEDURE verificarLoginSecretario(@dniSecretario VARCHAR(8))
+ALTER PROCEDURE verificarLoginSecretario(@dniSecretario VARCHAR(8),@password VARCHAR(30))
 AS
 BEGIN TRY
-	IF NOT EXISTS (SELECT dniSecretario FROM secretario WHERE dniSecretario=@dniSecretario)
+	IF NOT EXISTS (SELECT dniSecretario FROM secretario WHERE dniSecretario=@dniSecretario AND contrasenia=@password )
 	BEGIN
-		RAISERROR ('No existe el dni ingresado',14,1)
+		RAISERROR ('Error. Sesión Incorrecta',14,1)
 	END
 	ELSE
 	BEGIN
-		SELECT dniSecretario FROM secretario  WHERE dniSecretario=@dniSecretario
+		SELECT dniSecretario FROM secretario  WHERE dniSecretario=@dniSecretario AND contrasenia=@password
 	END
 END TRY
 BEGIN CATCH
