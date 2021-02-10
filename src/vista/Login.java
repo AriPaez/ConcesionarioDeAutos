@@ -1,15 +1,18 @@
 package vista;
 
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import java.awt.Font;
 import java.awt.Color;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
+import java.awt.Font;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+import controlador.ControlLogin;
 
 public class Login extends JFrame {
 	private JTextField dni;
@@ -84,7 +87,13 @@ public class Login extends JFrame {
 		label.setBackground(Color.BLACK);
 		label.setBounds(39, 228, 110, 14);
 		laminaPrincipal.add(label);
-	
+		
+		ControlLogin cL=new ControlLogin(this);
+		
+		//Eventos botones.
+		this.login.addActionListener(cL);
+		this.registrarse.addActionListener(cL);
+		
 	}
 
 	public String getDni() {
