@@ -55,7 +55,8 @@ EXEC registrarSecretario '',''
 
 --Registrar auto nuevo.
 
-CREATE PROCEDURE registrarAutoNuevo(@marca VARCHAR(30),@modelo VARCHAR(30),@color VARCHAR(15),@cantidad INT)
+ALTER PROCEDURE registrarAutoNuevo(@marca VARCHAR(30),@modelo VARCHAR(30),
+@color VARCHAR(15),@cantidad INT)
 AS
 BEGIN TRY
 	IF (@marca IS NULL OR 
@@ -87,6 +88,54 @@ BEGIN TRY
 				 VALUES
 					   ((SELECT MAX(idAutoMovil) FROM autoMovil)
 					   ,@cantidad)
+END TRY
+BEGIN CATCH
+	DECLARE @mensajeDeError VARCHAR(80)
+	
+	SELECT @mensajeDeError=ERROR_MESSAGE()
+	RAISERROR(@mensajeDeError,14,1);
+
+END CATCH
+ 
+-- registrar auto viejo
+
+CREATE PROCEDURE registrarAutoViejo(@marca varchar(30),@modelo VARCHAR(30),
+@color VARCHAR(15),@matricula VARCHAR(7),@cantidadKilometros
+FLOAT,@dniDueñoAnterior VARCHAR(8))
+AS
+BEGIN TRY
+	IF (@marca='' OR @modelo='' OR 
+	@color='' OR @matricula='' OR @cantidadKilometros='' OR @dniDueñoAnterior='')
+		BEGIN 
+			RAISERROR('CAMPOS VACIOS. INGRESE UN VALOR!',14,1)
+		END
+	ELSE
+			--Insersion de autoMovil
+			INSERT INTO [dbo].[autoMovil]
+					   (marca)
+				 VALUES
+					   (@marca)
+			--Insersion de modelo
+			INSERT INTO [dbo].[modelo]
+					   ([idAutoMovil]
+					   ,[modelo]
+					   ,[color])
+				 VALUES
+					   ((SELECT MAX(idAutoMovil) FROM autoMovil)
+					   ,@modelo
+					   ,@color)
+
+			--Insersion de auto viejo.
+			INSERT INTO [dbo].[autoViejo]
+					   ([idAutoMovil]
+					   ,[matricula]
+					   ,[cantidadKilometros]
+					   ,[dniDueñoAnterior])
+				 VALUES
+					   ((SELECT MAX(idAutoMovil) FROM autoMovil), 
+					   @matricula, 
+					   @cantidadKilometros,
+					   @dniDueñoAnterior)
 END TRY
 BEGIN CATCH
 	DECLARE @mensajeDeError VARCHAR(80)

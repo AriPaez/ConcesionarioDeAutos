@@ -20,6 +20,7 @@ public class Secretario extends JFrame {
 	private JButton registrarAutoNuevo;
 	
 	public Secretario() {
+		
 		getContentPane().setLayout(null);
 		
 		JPanel laminaPrincipal = new JPanel();

@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import controlador.ControlAutoNuevo;
+import controlador.ControlRegistroAuto;
 
 public class RegistroAutoNuevo extends JFrame {
 	
@@ -83,7 +83,7 @@ public class RegistroAutoNuevo extends JFrame {
 		cantidad.setBounds(160, 207, 129, 20);
 		laminaPrincipal.add(cantidad);
 		
-		ControlAutoNuevo cAN=new ControlAutoNuevo(this);
+		ControlRegistroAuto cAN=new ControlRegistroAuto(this);
 		
 		
 		//Eventos botones.
@@ -116,6 +116,24 @@ public class RegistroAutoNuevo extends JFrame {
 	public String getCantidad() {
 		return cantidad.getText();
 	}
+
 	
+	public void setMarca(String marca) {
+		this.marca.setText(marca);;
+	}
+
+	public void setModelo(String modelo) {
+		this.modelo.setText(modelo);
+	}
 	
+	public void setColor(String color) {
+		this.color.setText(color);
+	}
+	
+	public void setCantidad(String cantidad) {
+		this.cantidad.setText(cantidad);
+	}
+	
+	 
+
 }
