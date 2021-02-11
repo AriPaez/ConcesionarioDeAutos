@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import modelo.BBDDSecretario;
 import vista.Login;
 import vista.RegistroSecretario;
-import vista.VentanaSecretario;
+import vista.Secretario;
 
 public class ControlLogin implements ActionListener {
 	
@@ -41,7 +41,7 @@ public class ControlLogin implements ActionListener {
 					//Cierre de la ventana login
 					login.dispose();
 					//Apertura de la VentanaSecretario.
-					VentanaSecretario vS=new VentanaSecretario();
+					Secretario vS=new Secretario();
 					vS.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					vS.setVisible(true);
 				}

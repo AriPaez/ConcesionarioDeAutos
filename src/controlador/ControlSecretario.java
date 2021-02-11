@@ -2,44 +2,44 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JFrame;
-import modelo.BBDDSecretario;
-import vista.Login;
-import vista.RegistroSecretario;
+
+import vista.Secretario;
 
 public class ControlSecretario implements ActionListener {
 
-	private RegistroSecretario registroSecretario;
+	private Secretario secretario;
 	
-	public ControlSecretario (RegistroSecretario rS)
+	public ControlSecretario(Secretario s)
 	{
-		registroSecretario=rS;
+		secretario=s;
 	}
-
+	
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		 
+	 
 		Object botonSeleccionado=e.getSource();
 		
-		
-		if(botonSeleccionado==registroSecretario.getRegistrarse())
+		if(botonSeleccionado==secretario.getRegistrarAutoNuevo())
 		{
-			BBDDSecretario lA=new BBDDSecretario(registroSecretario);
-			
-			lA.registrarSecretario();
-			
+			System.out.println("auto nuevo");
+		}
+		else if(botonSeleccionado==secretario.getRegistrarAutoViejo())
+		{
+			System.out.println("auto viejo");
+		}
+		else if(botonSeleccionado==secretario.getRegistrarCliente())
+		{
+			System.out.println("cliente");
 		}
 		else
 		{
-			//Cierre de la ventana registroSecretario.
-			registroSecretario.dispose();
-			//Apertura de la ventana login.
-			Login l=new Login();
-			l.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			l.setVisible(true);
+			System.out.println("mecanico");
 		}
 		
+		
+		
+
 	}
-	
-	
+
 }

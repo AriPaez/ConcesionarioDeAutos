@@ -1,14 +1,14 @@
 --Verificacion de login.
-CREATE PROCEDURE verificarLoginSecretario(@dniSecretario VARCHAR(8))
+CREATE PROCEDURE iniciarSesion(@dniSecretario VARCHAR(8),@password VARCHAR(30))
 AS
 BEGIN TRY
-	IF NOT EXISTS (SELECT dniSecretario FROM secretario WHERE dniSecretario=@dniSecretario)
+	IF NOT EXISTS (SELECT dniSecretario FROM secretario WHERE dniSecretario=@dniSecretario AND contrasenia=@password )
 	BEGIN
-		RAISERROR ('No existe el dni ingresado',14,1)
+		RAISERROR ('Error. Sesión Incorrecta',14,1)
 	END
 	ELSE
 	BEGIN
-		SELECT dniSecretario FROM secretario  WHERE dniSecretario=@dniSecretario
+		SELECT dniSecretario FROM secretario  WHERE dniSecretario=@dniSecretario AND contrasenia=@password
 	END
 END TRY
 BEGIN CATCH
@@ -22,3 +22,33 @@ END CATCH
 --ejecucion del procedimiento.
 
 EXEC verificarLoginSecretario '67576867'
+
+--Registrar secretario.
+ALTER PROCEDURE registrarSecretario(@dniSecretario VARCHAR(8),@password VARCHAR(30))
+AS
+BEGIN TRY
+	IF(@CustomerID IS NULL OR  @CompanyName IS NULL)
+	 BEGIN
+		 RAISERROR('NO SE PERMITEN VALORES NULL. INGRESE OTRO VALOR!',14,1)
+		 RETURN 
+	 END
+	 ELSE
+	 BEGIN
+		INSERT INTO [dbo].[secretario]
+				   ([dniSecretario]
+				   ,[contrasenia])
+		VALUES(@dniSecretario,
+				   @password)
+	END
+END TRY
+BEGIN CATCH
+	
+	throw 500000,'¡Error. No se ha podido registrar!',1
+
+END CATCH
+
+--Ejecucio del procedimiento.
+
+EXEC registrarSecretario '34234354','1234'
+
+ 

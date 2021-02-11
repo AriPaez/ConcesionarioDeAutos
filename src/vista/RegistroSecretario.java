@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import controlador.ControlSecretario;
+import controlador.ControlRegistroSecretario;
  
 
 public class RegistroSecretario extends JFrame {
@@ -79,7 +79,7 @@ public class RegistroSecretario extends JFrame {
 		fondoRegistro.setBounds(0, 0, 364, 305);
 		laminaPrincipal.add(fondoRegistro);
 		
-		ControlSecretario cS=new ControlSecretario(this);
+		ControlRegistroSecretario cS=new ControlRegistroSecretario(this);
 		
 		//Eventos botones.
 		this.cancelar.addActionListener(cS);

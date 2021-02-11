@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class VentanaSecretario extends JFrame {
+public class RegistroAutoViejo extends JFrame {
  
 
 }
