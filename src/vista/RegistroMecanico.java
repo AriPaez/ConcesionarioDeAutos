@@ -11,6 +11,8 @@ import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
 
+import controlador.RegistroClienteYMecanico;
+
 public class RegistroMecanico extends JFrame {
 
 	private JTextField dni;
@@ -110,6 +112,11 @@ public class RegistroMecanico extends JFrame {
 		idTaller.setBounds(160, 96, 129, 20);
 		laminaPrincipal.add(idTaller);
 		idTaller.setColumns(10);
+		
+		RegistroClienteYMecanico rCM=new RegistroClienteYMecanico(this);
+		//Eventos botones.
+		this.registrar.addActionListener(rCM);
+		this.cancelar.addActionListener(rCM);
 	}
 	
 	
@@ -184,7 +191,6 @@ public class RegistroMecanico extends JFrame {
 		return new Date(fechaContrato.getDate().getTime());
 	}
 	
-	
-	
+	 
 	
 }
