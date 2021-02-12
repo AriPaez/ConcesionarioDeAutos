@@ -14,6 +14,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import controlador.ControlSecretario;
+import controlador.VentaAutos;
 
 public class Secretario extends JFrame {
 	
@@ -21,6 +22,9 @@ public class Secretario extends JFrame {
 	private JButton registrarMecanico ;
 	private JButton registrarAutoViejo ;
 	private JButton registrarAutoNuevo;
+	private JMenuItem autoViejo;
+	private JMenuItem autoNuevo ;
+	private JMenuItem registrarReparacion ;
 	
 	public Secretario() {
 		
@@ -42,16 +46,16 @@ public class Secretario extends JFrame {
 		JMenu compraAuto = new JMenu("VENTA");
 		menuBar.add(compraAuto);
 		
-		JMenuItem autoViejo = new JMenuItem("Auto viejo");
+		autoViejo = new JMenuItem("Auto viejo");
 		compraAuto.add(autoViejo);
 		
-		JMenuItem autoNuevo = new JMenuItem("Auto nuevo");
+		autoNuevo = new JMenuItem("Auto nuevo");
 		compraAuto.add(autoNuevo);
 		
 		JMenu reparacion = new JMenu("REPARACI\u00D3N");
 		menuBar.add(reparacion);
 		
-		JMenuItem registrarReparacion = new JMenuItem("Registrar");
+		registrarReparacion = new JMenuItem("Registrar");
 		reparacion.add(registrarReparacion);
 		 
 		
@@ -120,6 +124,13 @@ public class Secretario extends JFrame {
 		this.registrarAutoViejo.addActionListener(cS);
 		this.registrarCliente.addActionListener(cS);
 		this.registrarMecanico.addActionListener(cS);
+		
+		VentaAutos vA=new VentaAutos(this);
+		
+		//Eventos menu.
+		this.autoNuevo.addActionListener(vA);
+		this.autoViejo.addActionListener(vA);
+		
 	}
 
 	public JButton getRegistrarCliente() {
@@ -137,4 +148,14 @@ public class Secretario extends JFrame {
 	public JButton getRegistrarAutoNuevo() {
 		return registrarAutoNuevo;
 	}
+
+	public JMenuItem getAutoViejo() {
+		return autoViejo;
+	}
+
+	public JMenuItem getAutoNuevo() {
+		return autoNuevo;
+	}
+	
+	
 }
