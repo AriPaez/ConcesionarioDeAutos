@@ -27,10 +27,10 @@ EXEC verificarLoginSecretario '67576867'
 ALTER PROCEDURE registrarSecretario(@dniSecretario VARCHAR(8),@password VARCHAR(30))
 AS
 BEGIN TRY
-	IF(@CustomerID IS NULL OR  @CompanyName IS NULL)
+	IF(@dniSecretario IS NULL OR @password  IS NULL OR @dniSecretario='' OR
+	@password='')
 	 BEGIN
-		 RAISERROR('NO SE PERMITEN VALORES NULL. INGRESE OTRO VALOR!',14,1)
-		 RETURN 
+		 RAISERROR('CAMPOS VACIOS. INGRESE UN VALOR!',14,1)
 	 END
 	 ELSE
 	 BEGIN
@@ -42,13 +42,165 @@ BEGIN TRY
 	END
 END TRY
 BEGIN CATCH
-	
-	throw 500000,'¡Error. No se ha podido registrar!',1
+	DECLARE @mensajeDeError VARCHAR(50)
+	SELECT @mensajeDeError=ERROR_MESSAGE()
+	RAISERROR(@mensajeDeError,14,1);
 
 END CATCH
 
 --Ejecucio del procedimiento.
 
-EXEC registrarSecretario '34234354','1234'
+EXEC registrarSecretario '',''
 
+
+--Registrar auto nuevo.
+
+ALTER PROCEDURE registrarAutoNuevo(@marca VARCHAR(30),@modelo VARCHAR(30),
+@color VARCHAR(15),@cantidad INT)
+AS
+BEGIN TRY
+	IF (@marca IS NULL OR 
+	@modelo IS NULL OR @color IS NULL OR @cantidad IS NULL OR @marca=''
+	OR @modelo='' OR @color='' OR @cantidad='')
+		BEGIN 
+			RAISERROR('CAMPOS VACIOS. INGRESE UN VALOR!',14,1)
+		END
+	ELSE
+			--Insersion de autoMovil
+			INSERT INTO [dbo].[autoMovil]
+					   (marca)
+				 VALUES
+					   (@marca)
+			--Insersion de modelo
+			INSERT INTO [dbo].[modelo]
+					   ([idAutoMovil]
+					   ,[modelo]
+					   ,[color])
+				 VALUES
+					   ((SELECT MAX(idAutoMovil) FROM autoMovil)
+					   ,@modelo
+					   ,@color)
+
+			--Insersion de cantidad de autos nuevos.
+			INSERT INTO [dbo].[autoNuevo]
+					   ([idAutoMovil]
+					   ,[cantidad])
+				 VALUES
+					   ((SELECT MAX(idAutoMovil) FROM autoMovil)
+					   ,@cantidad)
+END TRY
+BEGIN CATCH
+	DECLARE @mensajeDeError VARCHAR(80)
+	
+	SELECT @mensajeDeError=ERROR_MESSAGE()
+	RAISERROR(@mensajeDeError,14,1);
+
+END CATCH
  
+-- registrar auto viejo
+
+CREATE PROCEDURE registrarAutoViejo(@marca varchar(30),@modelo VARCHAR(30),
+@color VARCHAR(15),@matricula VARCHAR(7),@cantidadKilometros
+FLOAT,@dniDueñoAnterior VARCHAR(8))
+AS
+BEGIN TRY
+	IF (@marca='' OR @modelo='' OR 
+	@color='' OR @matricula='' OR @cantidadKilometros='' OR @dniDueñoAnterior='')
+		BEGIN 
+			RAISERROR('CAMPOS VACIOS. INGRESE UN VALOR!',14,1)
+		END
+	ELSE
+			--Insersion de autoMovil
+			INSERT INTO [dbo].[autoMovil]
+					   (marca)
+				 VALUES
+					   (@marca)
+			--Insersion de modelo
+			INSERT INTO [dbo].[modelo]
+					   ([idAutoMovil]
+					   ,[modelo]
+					   ,[color])
+				 VALUES
+					   ((SELECT MAX(idAutoMovil) FROM autoMovil)
+					   ,@modelo
+					   ,@color)
+
+			--Insersion de auto viejo.
+			INSERT INTO [dbo].[autoViejo]
+					   ([idAutoMovil]
+					   ,[matricula]
+					   ,[cantidadKilometros]
+					   ,[dniDueñoAnterior])
+				 VALUES
+					   ((SELECT MAX(idAutoMovil) FROM autoMovil), 
+					   @matricula, 
+					   @cantidadKilometros,
+					   @dniDueñoAnterior)
+END TRY
+BEGIN CATCH
+	DECLARE @mensajeDeError VARCHAR(80)
+	
+	SELECT @mensajeDeError=ERROR_MESSAGE()
+	RAISERROR(@mensajeDeError,14,1);
+
+END CATCH
+
+--Registrar cliente.
+
+ALTER PROCEDURE registrarCliente(@dniCliente VARCHAR(8),
+@dniSecretario VARCHAR(8),@primerNombre VARCHAR(30),@segundoNombre VARCHAR(30),
+@apellido VARCHAR(20),@direccion VARCHAR(40),@teléfono VARCHAR(10))
+AS
+BEGIN TRY
+	IF (@dniCliente='' OR @dniSecretario='' OR @primerNombre='' 
+	OR @segundoNombre='' OR @apellido='' OR  @direccion='' OR  @teléfono='')
+	BEGIN 
+			RAISERROR('CAMPOS VACIOS. INGRESE UN VALOR!',14,1)
+	END
+	ELSE IF(LEN(@dniCliente)<>8 OR LEN(@dniSecretario)<>8)
+	BEGIN 
+			RAISERROR('¡EL DNI DEBE SER DE 8 DIGÍTOS!',14,1)
+	END
+	ELSE IF(LEN(@teléfono)<>10)
+	BEGIN 
+			RAISERROR('¡EL NRO. DE TELÉFONO DEBE SER DE 10 DIGÍTOS!',14,1)
+	END
+	ELSE IF (ISNUMERIC(@dniCliente)=0 OR ISNUMERIC(@dniSecretario)=0)
+	BEGIN
+			RAISERROR('¡EL NRO. DE DNI DEBE SER DE ENTERO!',14,1)
+	END
+	ELSE IF(ISNUMERIC(@teléfono)=0)
+	BEGIN
+			RAISERROR('¡EL NRO. DE TELÉFONO DEBE SER DE ENTERO!',14,1)
+	END
+	BEGIN 
+
+	INSERT INTO [dbo].[cliente]
+			   ([dniCliente]
+			   ,[dniSecretario]
+			   ,[primerNombre]
+			   ,[segundoNombre]
+			   ,[apellido]
+			   ,[direccion]
+			   ,[teléfono])
+		 VALUES
+			   (@dniCliente,
+			   @dniSecretario, 
+			   @primerNombre, 
+			   @segundoNombre, 
+			   @apellido, 
+			   @direccion, 
+			   @teléfono )
+		END
+END TRY
+
+BEGIN CATCH
+
+	DECLARE @mensajeDeError VARCHAR(100);
+
+	SELECT @mensajeDeError=ERROR_MESSAGE()
+	
+	RAISERROR(@MENSAJEDEERROR,14,1);
+END CATCH
+
+EXEC registrarCliente '21212121','32323232','sdf','fsf','sfs','fsdf','fsdf'

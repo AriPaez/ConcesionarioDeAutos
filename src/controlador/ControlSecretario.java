@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 
 import vista.RegistroAutoNuevo;
 import vista.RegistroAutoViejo;
+import vista.RegistroCliente;
+import vista.RegistroMecanico;
 import vista.Secretario;
 
 public class ControlSecretario implements ActionListener {
@@ -44,11 +46,21 @@ public class ControlSecretario implements ActionListener {
 		}
 		else if(botonSeleccionado==secretario.getRegistrarCliente())
 		{
-			System.out.println("cliente");
+			//Cierre de la ventana secretario.
+			 secretario.dispose();
+			 //Apertura de la ventana registro de cliente.
+			 RegistroCliente rC=new RegistroCliente();
+			 rC.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			 rC.setVisible(true);
 		}
 		else
 		{
-			System.out.println("mecanico");
+			//Cierre de la ventana secretario.
+			 secretario.dispose();
+			 //Apertura de la ventana registro de registroMecanico.
+			 RegistroMecanico rM=new RegistroMecanico();
+			 rM.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			 rM.setVisible(true);
 		}
 		
 		

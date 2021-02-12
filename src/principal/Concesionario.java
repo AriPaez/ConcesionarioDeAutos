@@ -2,13 +2,13 @@ package principal;
 
 import javax.swing.JFrame;
 
-import vista.Secretario;
+import vista.Login;
 
 public class Concesionario {
 
 	public static void main(String[] args) 
 	{
-		Secretario l=new Secretario();
+		Login l=new Login();
 		l.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		l.setVisible(true);
 

@@ -12,14 +12,14 @@ CREATE TABLE cliente
 	segundoNombre VARCHAR(20),
 	apellido VARCHAR(20) NOT NULL,
 	direccion VARCHAR(30) NOT NULL,
-	teléfono VARCHAR(10) NOT NULL,
+	telefono VARCHAR(10) NOT NULL,
 
 	FOREIGN KEY(dniSecretario) REFERENCES secretario(dniSecretario)
 )
 
 CREATE TABLE taller
 (
-	idTaller INT  PRIMARY KEY IDENTITY(1,1) NOT NULL,
+	idTaller VARCHAR (20) PRIMARY KEY NOT NULL,
 	descripción VARCHAR(30) NOT NULL
 )
 
@@ -27,11 +27,11 @@ CREATE TABLE mecanico
 (
 	dniMecanico VARCHAR(8) PRIMARY KEY NOT NULL,
 	dniSecretario VARCHAR(8) NOT NULL,
-	idTaller INT  NOT NULL,
+	idTaller VARCHAR (20) NOT NULL,
 	primerNombre VARCHAR(20) NOT NULL,
 	segundoNombre  VARCHAR(20),
 	apellido VARCHAR(20) NOT NULL,
-	fechaContratacion VARCHAR(30) NOT NULL,
+	fechaContratacion DATE NOT NULL,
 	salario FLOAT
 
 	FOREIGN KEY(dniSecretario) REFERENCES secretario(dniSecretario),
@@ -43,7 +43,7 @@ CREATE TABLE autoMovil
 	idAutoMovil INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
 	dniCliente VARCHAR(8),
 	marca VARCHAR(25) NOT NULL,
-
+	
 	FOREIGN KEY(dniCliente) REFERENCES cliente(dniCliente)
 )
 
@@ -87,3 +87,4 @@ CREATE TABLE reparacion
 	FOREIGN KEY(idAutoMovil) REFERENCES autoMovil(idAutoMovil),
 	FOREIGN KEY(dniMecanico) REFERENCES mecanico(dniMecanico)
 )
+

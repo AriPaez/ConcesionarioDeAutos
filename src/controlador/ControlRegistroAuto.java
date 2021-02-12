@@ -9,6 +9,7 @@ import modelo.BBDDAutos;
 import vista.Login;
 import vista.RegistroAutoNuevo;
 import vista.RegistroAutoViejo;
+import vista.Secretario;
 
 public class ControlRegistroAuto implements ActionListener{
 
@@ -55,8 +56,8 @@ public class ControlRegistroAuto implements ActionListener{
 			{
 				//Cierre de la ventana registroAutoNuevo.
 				registroAutoNuevo.dispose();
-				//Apertura de la ventana login.
-				Login l=new Login();
+				//Apertura de la ventana secretario.
+				Secretario l=new Secretario();
 				l.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				l.setVisible(true);
 			}
@@ -72,8 +73,8 @@ public class ControlRegistroAuto implements ActionListener{
 			{
 				//Cierre de la ventana registroAutoViejo.
 				registroAutoViejo.dispose();
-				//Apertura de la ventana login.
-				Login l=new Login();
+				//Apertura de la ventana secretario.
+				Secretario l=new Secretario();
 				l.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				l.setVisible(true);
 			}

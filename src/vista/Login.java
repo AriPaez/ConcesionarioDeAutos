@@ -15,11 +15,12 @@ import javax.swing.JTextField;
 import controlador.ControlLogin;
 
 public class Login extends JFrame {
-	private JTextField dni;
+	
+	private static JTextField dni;
 	private JPasswordField password;
 	private JButton registrarse;
 	private JButton login;
-	
+	 
 	public Login() 
 	{
 		getContentPane().setLayout(null); 
@@ -96,7 +97,7 @@ public class Login extends JFrame {
 		
 	}
 
-	public String getDni() {
+	public static String getDni() {
 		return dni.getText();
 	}
 
@@ -123,6 +124,6 @@ public class Login extends JFrame {
 		return login;
 	}
 	
-	
+	 
 	
 }
