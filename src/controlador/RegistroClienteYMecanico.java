@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import modelo.BBDD;
 import modelo.BBDDRegistroClienteYMecanico;
@@ -58,7 +59,9 @@ public class RegistroClienteYMecanico implements ActionListener {
 		{
 			if(botonElegido==registroMecanico.getRegistrar())
 			{
-				registroEnBBDD.registrarMecanico();
+				 
+					registroEnBBDD.registrarMecanico();
+				 
 			}
 			else
 			{

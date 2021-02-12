@@ -2,13 +2,13 @@ package principal;
 
 import javax.swing.JFrame;
 
-import vista.Login;
+import vista.RegistroMecanico;
 
 public class Concesionario {
 
 	public static void main(String[] args) 
 	{
-		Login l=new Login();
+		RegistroMecanico l=new RegistroMecanico();
 		l.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		l.setVisible(true);
 

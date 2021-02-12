@@ -56,7 +56,7 @@ public class BBDDRegistroClienteYMecanico {
 			 
 			 
 		}
-		catch (SQLException e) {
+		catch (SQLException e ) {
 			 
 			JOptionPane.showMessageDialog(null,e.getMessage(), "ERROR", 2, null);
 			//Reseteo de los campos JTextField.
@@ -68,9 +68,10 @@ public class BBDDRegistroClienteYMecanico {
 			registroCliente.setTelefono("");
 			
 		}
+		
 	}
 	
-	public void registrarMecanico()
+	public void registrarMecanico() 
 	{
 		try 
 		{
@@ -78,12 +79,12 @@ public class BBDDRegistroClienteYMecanico {
 			prepareCall("{call registrarMecanico(?,?,?,?,?,?,?,?)}");
 			
 			registrarMecanico.setString(1,this.registroMecanico.getDni());
-			registrarMecanico.setString(2,Login.getDni());
+			registrarMecanico.setString(2,"94712223");
 			registrarMecanico.setString(3,this.registroMecanico.getIdTaller());
 			registrarMecanico.setString(4,this.registroMecanico.getPrimerNombre());
 			registrarMecanico.setString(5,this.registroMecanico.getSegundoNombre());
 			registrarMecanico.setString(6,this.registroMecanico.getApellido());
-			registrarMecanico.setDate(7,(Date) this.registroMecanico.getFechaContrato());
+			registrarMecanico.setDate(7,new Date(registroMecanico.getFechaContrato().getTime()));
 			registrarMecanico.setFloat(8,this.registroMecanico.getSalario());
 			registrarMecanico.execute();
 			
@@ -97,15 +98,14 @@ public class BBDDRegistroClienteYMecanico {
 		catch (SQLException e) {
 			 
 			JOptionPane.showMessageDialog(null,e.getMessage(), "ERROR", 2, null);
-			
-			//Reseteo de los campos JTextField.
-			registroMecanico.setDni("");
-			registroMecanico.setIdTaller("");
-			registroMecanico.setPrimerNombre("");
-			registroMecanico.setSegundoNombre("");
-			registroMecanico.setApellido("");
-			registroMecanico.setSalario("");
+		 
 		}
+		catch(NullPointerException e)
+		{
+			JOptionPane.showMessageDialog(null,"NO HA INGRESADO LA FECHA", "ERROR", 2, null);
+			
+		}
+		 
 	}
 	
 	public void abriVentanaSecretario()

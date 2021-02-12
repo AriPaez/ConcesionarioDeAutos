@@ -20,12 +20,12 @@ public class RegistroMecanico extends JFrame {
 	private JTextField primerNombre;
 	private JTextField segundoNombre;
 	private JTextField apellido;
-	private JTextField salario;
-	
+	 
 	private JButton registrar;
 	private JButton cancelar ;
-	private JDateChooser fechaContrato;
+	private JDateChooser fechaContrato=null;
 	private JTextField idTaller;
+	private JTextField salario;
 	
 	public RegistroMecanico() 
 	{
@@ -33,9 +33,9 @@ public class RegistroMecanico extends JFrame {
 		getContentPane().setLayout(null);
 		
 		JPanel laminaPrincipal = new JPanel();
-		setSize(315,423);
+		setSize(315,460);
 		setLocationRelativeTo(null);
-		laminaPrincipal.setBounds(0, 0, 299, 384);
+		laminaPrincipal.setBounds(0, 0, 299, 421);
 		getContentPane().add(laminaPrincipal);
 		laminaPrincipal.setLayout(null);
 		JLabel labelRegistroMecanico = new JLabel("REGISTRO M\u00C9CANICO");
@@ -85,11 +85,11 @@ public class RegistroMecanico extends JFrame {
 	
 		
 		registrar = new JButton("REGISTRAR");
-		registrar.setBounds(23, 352, 113, 23);
+		registrar.setBounds(23, 376, 113, 23);
 		laminaPrincipal.add(registrar);
 		
 		cancelar = new JButton("CANCELAR");
-		cancelar.setBounds(168, 352, 108, 23);
+		cancelar.setBounds(168, 376, 108, 23);
 		laminaPrincipal.add(cancelar);
 		
 		JLabel labelCodigoTaller = new JLabel("C\u00D3DIGO TALLER");
@@ -112,6 +112,16 @@ public class RegistroMecanico extends JFrame {
 		idTaller.setBounds(160, 96, 129, 20);
 		laminaPrincipal.add(idTaller);
 		idTaller.setColumns(10);
+		
+		JLabel labelSalario = new JLabel("SALARIO");
+		labelSalario.setFont(new Font("Arial", Font.BOLD, 12));
+		labelSalario.setBounds(31, 323, 84, 20);
+		laminaPrincipal.add(labelSalario);
+		
+		salario = new JTextField();
+		salario.setColumns(10);
+		salario.setBounds(160, 323, 129, 20);
+		laminaPrincipal.add(salario);
 		
 		RegistroClienteYMecanico rCM=new RegistroClienteYMecanico(this);
 		//Eventos botones.
@@ -173,8 +183,9 @@ public class RegistroMecanico extends JFrame {
 
 	public Float getSalario() {
 		
-		if(salario.getText()!="")
+		if(salario!=null)
 		{
+			 
 			return Float.parseFloat(this.salario.getText());
 		}
 		
@@ -183,14 +194,14 @@ public class RegistroMecanico extends JFrame {
 	
 	public void setSalario(String salario)
 	{
-		this.salario.setText(salario);
+		if(salario==null)
+		{
+			this.salario.setText(salario);
+		}
 	}
  
 	public Date getFechaContrato() {
 		
-		return new Date(fechaContrato.getDate().getTime());
+		 return this.fechaContrato.getDate();
 	}
-	
-	 
-	
 }
