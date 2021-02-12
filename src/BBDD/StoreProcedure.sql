@@ -273,5 +273,5 @@ BEGIN CATCH
 
 END CATCH
 
-exec registrarMecanico '','','','','','','',''
+EXEC registrarMecanico '','','','','','','',''
  

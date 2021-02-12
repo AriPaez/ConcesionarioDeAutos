@@ -8,6 +8,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import controlador.ControlSecretario;
@@ -30,6 +33,28 @@ public class Secretario extends JFrame {
 		laminaPrincipal.setBounds(0, 0, 484, 461);
 		getContentPane().add(laminaPrincipal);
 		laminaPrincipal.setLayout(null);
+		
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBackground(Color.LIGHT_GRAY);
+		menuBar.setBounds(0, 0, 134, 22);
+		laminaPrincipal.add(menuBar);
+		
+		JMenu compraAuto = new JMenu("VENTA");
+		menuBar.add(compraAuto);
+		
+		JMenuItem autoViejo = new JMenuItem("Auto viejo");
+		compraAuto.add(autoViejo);
+		
+		JMenuItem autoNuevo = new JMenuItem("Auto nuevo");
+		compraAuto.add(autoNuevo);
+		
+		JMenu reparacion = new JMenu("REPARACI\u00D3N");
+		menuBar.add(reparacion);
+		
+		JMenuItem registrarReparacion = new JMenuItem("Registrar");
+		reparacion.add(registrarReparacion);
+		 
+		
 		
 		JLabel labelRegistrarCliente = new JLabel("REGISTRAR CLIENTE");
 		labelRegistrarCliente.setForeground(Color.BLACK);
@@ -80,9 +105,13 @@ public class Secretario extends JFrame {
 		laminaPrincipal.add(registrarAutoNuevo);
 		
 		JLabel fondoPrincipal = new JLabel();
-		fondoPrincipal.setBounds(0, 0, 500, 500);
+		fondoPrincipal.setBounds(0, 0, 484, 461);
 		fondoPrincipal.setIcon(new ImageIcon("C:\\Users\\ArielPaez\\Desktop\\proyectosJava\\concesionarioDeAuto\\ConcesionarioDeAutos\\src\\icon\\ventanaSecretario\\fondoSecretario.jpg"));
 		laminaPrincipal.add(fondoPrincipal);
+		
+		
+		
+	 
 		
 		ControlSecretario cS=new ControlSecretario(this);
 		
@@ -108,5 +137,4 @@ public class Secretario extends JFrame {
 	public JButton getRegistrarAutoNuevo() {
 		return registrarAutoNuevo;
 	}
-	
 }
