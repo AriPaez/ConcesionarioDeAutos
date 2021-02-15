@@ -3,9 +3,12 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFrame;
+
 import modelo.BBDDCompraAuto;
 import vista.CompraAutoNuevo;
 import vista.CompraAutoViejo;
+import vista.Secretario;
 
 public class ControlCompraAuto implements ActionListener{
 	
@@ -50,7 +53,9 @@ public class ControlCompraAuto implements ActionListener{
 			}
 			else if(botonElegido==compraAutoNuevo.getCancelar())
 			{
-				System.out.println("cancelar compra");
+				Secretario s=new Secretario();
+				s.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				s.setVisible(true);
 			}
 		}
 		else

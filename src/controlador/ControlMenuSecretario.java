@@ -26,22 +26,27 @@ public class ControlMenuSecretario implements ActionListener {
 		
 		if(subMenuElegido==secretario.getAutoNuevo())
 		{
+			secretario.dispose();
 			CompraAutoNuevo cAN=new CompraAutoNuevo();
 			cAN.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			cAN.setVisible(true);
 		}
 		else if(subMenuElegido==secretario.getAutoViejo())
 		{
+			secretario.dispose();
 			CompraAutoNuevo cAN=new CompraAutoNuevo();
 			cAN.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			cAN.setVisible(true);
 		}
 		else  
 		{
+
 			System.out.println("registro reparacion");
 		}
 		
 		 
 	}
+	
+	
 
 }
