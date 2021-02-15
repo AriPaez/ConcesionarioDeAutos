@@ -14,7 +14,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import controlador.ControlSecretario;
-import controlador.VentaAutos;
+import controlador.ControlMenuSecretario;
 
 public class Secretario extends JFrame {
 	
@@ -125,12 +125,12 @@ public class Secretario extends JFrame {
 		this.registrarCliente.addActionListener(cS);
 		this.registrarMecanico.addActionListener(cS);
 		
-		VentaAutos vA=new VentaAutos(this);
+		ControlMenuSecretario vA=new ControlMenuSecretario(this);
 		
 		//Eventos menu.
 		this.autoNuevo.addActionListener(vA);
 		this.autoViejo.addActionListener(vA);
-		
+		this.registrarReparacion.addActionListener(vA);
 	}
 
 	public JButton getRegistrarCliente() {
