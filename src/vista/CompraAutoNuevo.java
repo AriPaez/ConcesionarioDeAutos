@@ -16,7 +16,8 @@ import javax.swing.SwingConstants;
 
 import controlador.ControlCompraAuto;
 
-public class CompraAutoNuevo extends JFrame {
+public class CompraAutoNuevo extends JFrame  {
+	
 	private JTable tabla;
 	private JTextField marcaCompra;
 	private JTextField modeloCompra;
@@ -25,7 +26,6 @@ public class CompraAutoNuevo extends JFrame {
 	private JButton comprar;
 	private JButton cancelar; 
 	private JLabel fotoAuto ;
-	private JButton buscarAuto; 
 	private JComboBox modelo ;
 	private JComboBox marca;
 	
@@ -42,9 +42,7 @@ public class CompraAutoNuevo extends JFrame {
 		getContentPane().add(laminaPrincipal);
 		laminaPrincipal.setLayout(null);
 		
-		modelo = new JComboBox();
-		modelo.setBounds(84, 58, 145, 22);
-		laminaPrincipal.add(modelo);
+		
 		
 		Label labelMarca = new Label("MARCA");
 		labelMarca.setFont(new Font("Arial", Font.BOLD, 12));
@@ -156,23 +154,29 @@ public class CompraAutoNuevo extends JFrame {
 		dniCliente.setBounds(480, 416, 80, 20);
 		laminaPrincipal.add(dniCliente);
 		
-		buscarAuto = new JButton("BUSCAR");
-		buscarAuto.setFont(new Font("Arial", Font.BOLD, 12));
-		buscarAuto.setBounds(239, 41, 93, 22);
-		laminaPrincipal.add(buscarAuto);
-		
 		marca = new JComboBox();
 		marca.setBounds(84, 25, 145, 22);
 		laminaPrincipal.add(marca);
 		
+		modelo = new JComboBox();
+		modelo.setBounds(84, 58, 145, 22);
+		laminaPrincipal.add(modelo);
 		
 		ControlCompraAuto cCA=new ControlCompraAuto(this);
-		
-		//Eventos de botones
-		this.buscarAuto.addActionListener(cCA);
+		//Evento botones.
 		this.cancelar.addActionListener(cCA);
 		this.comprar.addActionListener(cCA);
 	
+		//Evento ventana.
+		this.addWindowListener(cCA);
+		
+		//Evento JComoboBox
+		this.marca.addItemListener(cCA);
+		this.modelo.addItemListener(cCA);
+		
+		//Evento tabla.
+		this.tabla.addMouseListener(cCA);
+		 
 	}
 
 
@@ -218,13 +222,25 @@ public class CompraAutoNuevo extends JFrame {
 	public JLabel getFotoAuto() {
 		return fotoAuto;
 	}
-
-	public JButton getBuscarAuto() {
-		return buscarAuto;
-	}
-
-
+ 
 	public JComboBox getModelo() {
 		return modelo;
 	}
+
+
+	public void setMarcaCompra(String marcaCompra) {
+		this.marcaCompra.setText(marcaCompra);
+	}
+
+
+	public void setModeloCompra(String modeloCompra) {
+		this.modeloCompra.setText(modeloCompra);
+	}
+
+
+	public void setColorCompra(String colorCompra) {
+		this.colorCompra.setText(colorCompra);
+	}
+	
+	
 }

@@ -131,6 +131,7 @@ public class Secretario extends JFrame {
 		this.autoNuevo.addActionListener(vA);
 		this.autoViejo.addActionListener(vA);
 		this.registrarReparacion.addActionListener(vA);
+		 
 	}
 
 	public JButton getRegistrarCliente() {

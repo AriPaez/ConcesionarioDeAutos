@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 
 import vista.CompraAutoNuevo;
+import vista.CompraAutoViejo;
 import vista.Secretario;
 
 public class ControlMenuSecretario implements ActionListener {
@@ -30,11 +31,12 @@ public class ControlMenuSecretario implements ActionListener {
 			CompraAutoNuevo cAN=new CompraAutoNuevo();
 			cAN.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			cAN.setVisible(true);
+			
 		}
 		else if(subMenuElegido==secretario.getAutoViejo())
 		{
 			secretario.dispose();
-			CompraAutoNuevo cAN=new CompraAutoNuevo();
+			CompraAutoViejo cAN=new CompraAutoViejo();
 			cAN.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			cAN.setVisible(true);
 		}

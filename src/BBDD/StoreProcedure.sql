@@ -274,4 +274,27 @@ BEGIN CATCH
 END CATCH
 
 EXEC registrarMecanico '','','','','','','',''
+
+--mostrar todas las marcas de modelos nuevos.
+CREATE PROCEDURE mostrarMarcasAutosNuevos
+AS
+SELECT DISTINCT marca
+FROM autoMovil AS aM INNER JOIN autoNuevo AS aN
+ON (aM.idAutoMovil=aN.idAutoMovil)
+--mostrar todos los modelos de autos nuevos.
+alter PROCEDURE mostrarModelosAutosNuevos
+AS
+SELECT DISTINCT aM.marca,m.modelo
+FROM modelo AS m INNER JOIN autoNuevo AS aN
+ON(m.idAutoMovil=aN.idAutoMovil) INNER JOIN autoMovil as aM
+on(aM.idAutoMovil=aN.idAutoMovil)
  
+
+ --mostrar todos los campos de la entidad auto nuevo.
+ CREATE PROCEDURE mostrarAutoNuevo (@marca VARCHAR(30),@modelo VARCHAR(30))
+ AS
+ SELECT aM.marca,m.modelo,m.color,aN.cantidad
+ FROM autoMovil AS aM INNER JOIN modelo AS m
+ ON(m.idAutoMovil=aM.idAutoMovil) INNER JOIN
+ autoNuevo AS aN ON(aN.idAutoMovil=m.idAutoMovil)
+ WHERE marca=@marca and modelo=@modelo

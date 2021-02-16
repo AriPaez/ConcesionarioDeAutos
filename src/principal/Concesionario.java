@@ -2,13 +2,13 @@ package principal;
 
 import javax.swing.JFrame;
 
-import vista.CompraAutoNuevo;
+import vista.Login;
 
 public class Concesionario {
 
 	public static void main(String[] args) 
 	{
-		CompraAutoNuevo l=new CompraAutoNuevo();
+		Login l=new Login();
 		l.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		l.setVisible(true);
 
