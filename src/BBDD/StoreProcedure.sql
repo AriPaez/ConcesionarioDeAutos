@@ -340,7 +340,6 @@ AS
 	BEGIN
 		--update de compra de cliente.
 		UPDATE [dbo].[autoMovil] SET dniCliente=@dniCliente
-		WHERE marca=@marca 
 		FROM autoMovil AS aM INNER JOIN modelo AS m
 		ON(m.idAutoMovil=aM.idAutoMovil) INNER JOIN
 		autoNuevo AS aN ON(aN.idAutoMovil=m.idAutoMovil)
