@@ -65,7 +65,7 @@ public class BBDDCompraAuto {
 		
 	}
 
-	public void cargarJComboboxMarcaModelo() {
+	public void cargarJComboboxMarcaModeloAutoNuevo() {
 			
 		ResultSet tablaMarcas=null;
 		ResultSet tablaModelos=null;
@@ -124,7 +124,7 @@ public class BBDDCompraAuto {
 	}
 	
 	//Cambia los modelos de autos al detectar cambio de marca del JComboBox.
-	public void cambiarJComboboxModelo(String comboBoxMarcaSeleccionado)
+	public void cambiarJComboboxModeloAutoNuevo(String comboBoxMarcaSeleccionado)
 	{
 			
 			//Agrega los modelos de autos al combobox modelos.
@@ -138,7 +138,7 @@ public class BBDDCompraAuto {
 			  
 	}
 	
-	public void cargarTablaMarcaModelo(String comboBoxMarcaSeleccionado,String comboBoxModeloSeleccionado)
+	public void cargarTablaMarcaModeloAutoNuevo(String comboBoxMarcaSeleccionado,String comboBoxModeloSeleccionado)
 	{
 		ResultSet tablaAutoNuevo;
 		
@@ -178,10 +178,11 @@ public class BBDDCompraAuto {
 		compraAutoNuevo.setColorCompra((String)compraAutoNuevo.getTabla().getValueAt(filaSeleccionada, 2));
 	}
 	
-	public void comprarAutoViejo() {
+	 
 
-	}
-
+	//Compra de auto viejo.
+	 
+	
 	
 
 }

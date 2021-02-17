@@ -72,7 +72,7 @@ public class ControlCompraAuto extends WindowAdapter  implements ActionListener,
 	 //Carga marca y todos sus modelos al abrirse por primera vez la ventana CompraAutoNuevo.
 	 public void windowOpened(WindowEvent e)
 	 {
-		 compraAuto.cargarJComboboxMarcaModelo();
+		 compraAuto.cargarJComboboxMarcaModeloAutoNuevo();
 	 }
 
 
@@ -95,7 +95,7 @@ public class ControlCompraAuto extends WindowAdapter  implements ActionListener,
 				 
 				compraAutoNuevo.getModelo().removeAllItems();
 				
-				compraAuto.cambiarJComboboxModelo(comboBoxMarcaSeleccionado);
+				compraAuto.cambiarJComboboxModeloAutoNuevo(comboBoxMarcaSeleccionado);
 			}
 		}
 		else 
@@ -106,7 +106,7 @@ public class ControlCompraAuto extends WindowAdapter  implements ActionListener,
 
 				comboBoxMarcaSeleccionado=(String) compraAutoNuevo.getMarca().getSelectedItem();
 				 
-				compraAuto.cargarTablaMarcaModelo(comboBoxMarcaSeleccionado,comboBoxModeloSeleccionado);
+				compraAuto.cargarTablaMarcaModeloAutoNuevo(comboBoxMarcaSeleccionado,comboBoxModeloSeleccionado);
 			}	  
 		}
 	}
