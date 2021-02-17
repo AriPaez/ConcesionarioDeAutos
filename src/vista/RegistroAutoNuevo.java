@@ -21,7 +21,8 @@ public class RegistroAutoNuevo extends JFrame {
 	private JButton cancelar;
 	private JTextField cantidad;
 	private JButton buscarAuto ;
-	
+	private String rutaDeImagen;
+	private BBDDAutos bA;
 	public RegistroAutoNuevo() {
 		
 		getContentPane().setLayout(null);
@@ -98,7 +99,7 @@ public class RegistroAutoNuevo extends JFrame {
 		
 		ControlRegistroAuto cAN=new ControlRegistroAuto(this);
 		
-		BBDDAutos bA=new BBDDAutos();
+		bA=new BBDDAutos();
 		
 		//Eventos botones.
 		this.registrarAutoNuevo.addActionListener(cAN);
@@ -151,6 +152,11 @@ public class RegistroAutoNuevo extends JFrame {
 	public JButton getBuscarAuto() {
 		return buscarAuto;
 	}
+
+	public String getRutaDeImagen() {
+		 return bA.getRutaDeImagen();
+	}
+	
 	
 	
 }

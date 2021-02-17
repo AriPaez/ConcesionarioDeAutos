@@ -45,14 +45,15 @@ public class BBDDAutos  implements ActionListener{
 		try 
 		{
 			CallableStatement registrarAutoNuevo=conexionBBDD.getConexionBBDD().
-			prepareCall("{call registrarAutoNuevo(?,?,?,?)}");
+			prepareCall("{call registrarAutoNuevo(?,?,?,?,?)}");
 			
 			 
 			registrarAutoNuevo.setString(1,registroAutoNuevo.getMarca());
 			registrarAutoNuevo.setString(2,registroAutoNuevo.getModelo());
 			registrarAutoNuevo.setString(3,registroAutoNuevo.getColor());
 			registrarAutoNuevo.setString(4,registroAutoNuevo.getCantidad());
-			
+			System.out.println(this.rutaDeImagen);
+			registrarAutoNuevo.setString(5,this.rutaDeImagen);
 			registrarAutoNuevo.execute();
 			
 			JOptionPane.showMessageDialog(null,"Registrado exitosamente", "Registro", 1, null);
@@ -133,7 +134,9 @@ public class BBDDAutos  implements ActionListener{
 		 
 		 if(returnVal==JFileChooser.APPROVE_OPTION) 
 		 {
-    		this.rutaDeImagen=explorador.getSelectedFile().getAbsolutePath();
+    		
+			 this.rutaDeImagen=explorador.getSelectedFile().getAbsolutePath();
+    		
     		JOptionPane.showMessageDialog(null,"IMAGEN CARGADA CORRECTAMENTE", 
     		"IMAGEN", 1, null);
 			
@@ -141,5 +144,11 @@ public class BBDDAutos  implements ActionListener{
 		 
 		  
 	}
+
+	public String getRutaDeImagen() {
+		return rutaDeImagen;
+	}
+	
+	
 
 }
