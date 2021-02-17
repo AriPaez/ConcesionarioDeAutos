@@ -3,7 +3,10 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import modelo.BBDDAutos;
 import vista.Login;
@@ -52,7 +55,28 @@ public class ControlRegistroAuto implements ActionListener{
 			{
 				registroAuto.registrarAutoNuevo();
 			}
-			else 
+			else if(botonElegido==registroAutoNuevo.getBuscarImagenAuto())
+			{
+				JFileChooser explorador = new JFileChooser();
+				
+				 FileNameExtensionFilter filtrar= new FileNameExtensionFilter
+				("Escoja una imagen", "png");
+				 explorador.setFileFilter(filtrar);
+				 
+				 int returnVal = explorador.showOpenDialog(registroAutoNuevo);
+				 
+				 if(returnVal==JFileChooser.APPROVE_OPTION) 
+				 {
+		    		
+					 this.registroAutoNuevo.setRutaDeImagen(
+					explorador.getSelectedFile().getAbsolutePath());
+		    		
+		    		JOptionPane.showMessageDialog(null,"IMAGEN CARGADA CORRECTAMENTE", 
+		    		"IMAGEN", 1, null);
+					
+				 }
+			}
+			else
 			{
 				//Cierre de la ventana registroAutoNuevo.
 				registroAutoNuevo.dispose();

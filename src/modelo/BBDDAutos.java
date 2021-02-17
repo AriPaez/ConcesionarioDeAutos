@@ -14,18 +14,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import vista.RegistroAutoNuevo;
 import vista.RegistroAutoViejo;
 
-public class BBDDAutos  implements ActionListener{
+public class BBDDAutos{
 	
 	private RegistroAutoNuevo registroAutoNuevo;
 	private RegistroAutoViejo registroAutoViejo;
 	private BBDD conexionBBDD;
-	private String rutaDeImagen="";
-	
-	public BBDDAutos()
-	{
-		
-	}
-	
+	 
+
 	public BBDDAutos(RegistroAutoNuevo rAN)
 	{
 		registroAutoNuevo=rAN;
@@ -52,8 +47,7 @@ public class BBDDAutos  implements ActionListener{
 			registrarAutoNuevo.setString(2,registroAutoNuevo.getModelo());
 			registrarAutoNuevo.setString(3,registroAutoNuevo.getColor());
 			registrarAutoNuevo.setString(4,registroAutoNuevo.getCantidad());
-			System.out.println(this.rutaDeImagen);
-			registrarAutoNuevo.setString(5,this.rutaDeImagen);
+			registrarAutoNuevo.setString(5,registroAutoNuevo.getRutaDeImagen());
 			registrarAutoNuevo.execute();
 			
 			JOptionPane.showMessageDialog(null,"Registrado exitosamente", "Registro", 1, null);
@@ -120,35 +114,6 @@ public class BBDDAutos  implements ActionListener{
 		registroAutoNuevo.setColor("");
 		registroAutoNuevo.setCantidad("");
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		 
-		JFileChooser explorador = new JFileChooser();
-		
-		 FileNameExtensionFilter filtrar= new FileNameExtensionFilter
-		("Escoja una imagen", "png");
-		 explorador.setFileFilter(filtrar);
-		 
-		 int returnVal = explorador.showOpenDialog(registroAutoNuevo);
-		 
-		 if(returnVal==JFileChooser.APPROVE_OPTION) 
-		 {
-    		
-			 this.rutaDeImagen=explorador.getSelectedFile().getAbsolutePath();
-    		
-    		JOptionPane.showMessageDialog(null,"IMAGEN CARGADA CORRECTAMENTE", 
-    		"IMAGEN", 1, null);
-			
-		 }
-		 
-		  
-	}
-
-	public String getRutaDeImagen() {
-		return rutaDeImagen;
-	}
-	
-	
+ 
 
 }
