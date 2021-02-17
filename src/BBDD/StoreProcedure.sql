@@ -56,7 +56,7 @@ EXEC registrarSecretario '',''
 --Registrar auto nuevo.
 
 ALTER PROCEDURE registrarAutoNuevo(@marca VARCHAR(30),@modelo VARCHAR(30),
-@color VARCHAR(15),@cantidad INT)
+@color VARCHAR(15),@cantidad INT,@rutaImagenAuto VARCHAR(200))
 AS
 BEGIN TRY
 	IF (@marca IS NULL OR 
@@ -68,9 +68,9 @@ BEGIN TRY
 	ELSE
 			--Insersion de autoMovil
 			INSERT INTO [dbo].[autoMovil]
-					   (marca)
+					   (marca,imagenAuto)
 				 VALUES
-					   (@marca)
+					   (@marca,@rutaImagenAuto)
 			--Insersion de modelo
 			INSERT INTO [dbo].[modelo]
 					   ([idAutoMovil]

@@ -2,6 +2,7 @@ package vista;
 
 import java.awt.Font;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -9,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import controlador.ControlRegistroAuto;
-import javax.swing.ImageIcon;
+import modelo.BBDDAutos;
 
 public class RegistroAutoNuevo extends JFrame {
 	
@@ -97,11 +98,12 @@ public class RegistroAutoNuevo extends JFrame {
 		
 		ControlRegistroAuto cAN=new ControlRegistroAuto(this);
 		
+		BBDDAutos bA=new BBDDAutos();
 		
 		//Eventos botones.
 		this.registrarAutoNuevo.addActionListener(cAN);
 		this.cancelar.addActionListener(cAN);
-		this.buscarAuto.addActionListener(cAN);
+		this.buscarAuto.addActionListener(bA);
 		
 	}
 

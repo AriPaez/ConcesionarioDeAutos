@@ -1,20 +1,30 @@
 package modelo;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.sql.CallableStatement;
 import java.sql.SQLException;
 
-import javax.swing.JFrame;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
-import vista.Login;
 import vista.RegistroAutoNuevo;
 import vista.RegistroAutoViejo;
 
-public class BBDDAutos {
+public class BBDDAutos  implements ActionListener{
 	
 	private RegistroAutoNuevo registroAutoNuevo;
 	private RegistroAutoViejo registroAutoViejo;
 	private BBDD conexionBBDD;
+	private String rutaDeImagen="";
+	
+	public BBDDAutos()
+	{
+		
+	}
 	
 	public BBDDAutos(RegistroAutoNuevo rAN)
 	{
@@ -108,6 +118,28 @@ public class BBDDAutos {
 		registroAutoNuevo.setModelo("");
 		registroAutoNuevo.setColor("");
 		registroAutoNuevo.setCantidad("");
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		 
+		JFileChooser explorador = new JFileChooser();
+		
+		 FileNameExtensionFilter filtrar= new FileNameExtensionFilter
+		("Escoja una imagen", "png");
+		 explorador.setFileFilter(filtrar);
+		 
+		 int returnVal = explorador.showOpenDialog(registroAutoNuevo);
+		 
+		 if(returnVal==JFileChooser.APPROVE_OPTION) 
+		 {
+    		this.rutaDeImagen=explorador.getSelectedFile().getAbsolutePath();
+    		JOptionPane.showMessageDialog(null,"IMAGEN CARGADA CORRECTAMENTE", 
+    		"IMAGEN", 1, null);
+			
+		 }
+		 
+		  
 	}
 
 }
