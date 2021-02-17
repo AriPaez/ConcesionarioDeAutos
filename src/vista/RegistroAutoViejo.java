@@ -140,7 +140,7 @@ public class RegistroAutoViejo extends JFrame {
 
 	public Float getCantidadKm() {
 		
-		if(this.cantidadKm.getText()=="")
+		if(this.cantidadKm.getText()!="")
 		{
 			return Float.parseFloat(cantidadKm.getText());
 			
