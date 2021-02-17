@@ -223,15 +223,15 @@ public class BBDDCompraAuto {
 		
 		try 
 		{
-			CallableStatement mostrarMarcasAutosNuevos = conexionBBDD.getConexionBBDD()
-			.prepareCall("{call mostrarMarcasAutosNuevos()}");
+			CallableStatement mostrarMarcasAutosViejos = conexionBBDD.getConexionBBDD()
+			.prepareCall("{call mostrarMarcasAutosViejos()}");
 		
-			tablaMarcas=mostrarMarcasAutosNuevos.executeQuery();
+			tablaMarcas=mostrarMarcasAutosViejos.executeQuery();
 			
-			CallableStatement mostrarModelosAutosNuevos = conexionBBDD.getConexionBBDD()
-			.prepareCall("{call mostrarModelosAutosNuevos()}");
+			CallableStatement mostrarModelosAutosViejos = conexionBBDD.getConexionBBDD()
+			.prepareCall("{call mostrarModelosAutosViejos()}");
 				
-			tablaModelos=mostrarModelosAutosNuevos.executeQuery();
+			tablaModelos=mostrarModelosAutosViejos.executeQuery();
 			
 			 
 			conjuntoModelos=new LinkedList<String>();
@@ -249,7 +249,7 @@ public class BBDDCompraAuto {
 				}
 				
 				
-				this.compraAutoNuevo.getMarca().addItem(tablaMarcas.getString(1));
+				this.compraAutoViejo.getMarca().addItem(tablaMarcas.getString(1));
 			}
 			 
 		
@@ -260,7 +260,7 @@ public class BBDDCompraAuto {
 				
 				if(primerRegistroMarca.equals(tablaModelos.getString(1)))
 				{
-					this.compraAutoNuevo.getModelo().addItem(tablaModelos.getString(2));
+					this.compraAutoViejo.getModelo().addItem(tablaModelos.getString(2));
 				}
 			}
 		 
@@ -283,7 +283,7 @@ public class BBDDCompraAuto {
 			{
 				if (comboBoxMarcaSeleccionado.equals(conjuntoMarcas.get(i)))
 				{
-					this.compraAutoNuevo.getModelo().addItem(this.conjuntoModelos.get(i));
+					this.compraAutoViejo.getModelo().addItem(this.conjuntoModelos.get(i));
 				}
 			}
 			  
