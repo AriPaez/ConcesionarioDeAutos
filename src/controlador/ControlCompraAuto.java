@@ -66,7 +66,7 @@ public class ControlCompraAuto extends WindowAdapter  implements ActionListener,
 		{
 			if(botonElegido==compraAutoViejo.getComprar())
 			{
-				 compraAuto.comprarAutoNuevo();
+				 compraAuto.comprarAutoViejo();
 			}
 			else if(botonElegido==compraAutoViejo.getCancelar())
 			{
