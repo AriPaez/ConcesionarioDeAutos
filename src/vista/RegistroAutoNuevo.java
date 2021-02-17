@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import controlador.ControlRegistroAuto;
+import javax.swing.ImageIcon;
 
 public class RegistroAutoNuevo extends JFrame {
 	
@@ -24,9 +25,9 @@ public class RegistroAutoNuevo extends JFrame {
 		getContentPane().setLayout(null);
 		
 		JPanel laminaPrincipal = new JPanel();
-		setSize(315,357);
+		setSize(315,390);
 		setLocationRelativeTo(null);
-		laminaPrincipal.setBounds(0, 0, 315, 345);
+		laminaPrincipal.setBounds(0, 0, 299, 351);
 		getContentPane().add(laminaPrincipal);
 		laminaPrincipal.setLayout(null);
 		
@@ -66,11 +67,11 @@ public class RegistroAutoNuevo extends JFrame {
 		laminaPrincipal.add(color);
 		
 		registrarAutoNuevo = new JButton("REGISTRAR");
-		registrarAutoNuevo.setBounds(20, 266, 121, 23);
+		registrarAutoNuevo.setBounds(20, 306, 121, 23);
 		laminaPrincipal.add(registrarAutoNuevo);
 		
 		cancelar = new JButton("CANCELAR");
-		cancelar.setBounds(168, 266, 121, 23);
+		cancelar.setBounds(168, 306, 121, 23);
 		laminaPrincipal.add(cancelar);
 		
 		JLabel labelCantidad = new JLabel("CANTIDAD");
@@ -82,6 +83,16 @@ public class RegistroAutoNuevo extends JFrame {
 		cantidad.setColumns(10);
 		cantidad.setBounds(160, 207, 129, 20);
 		laminaPrincipal.add(cantidad);
+		
+		JLabel labelImagenAuto = new JLabel("IMAGEN AUTO");
+		labelImagenAuto.setFont(new Font("Arial", Font.BOLD, 12));
+		labelImagenAuto.setBounds(31, 256, 84, 20);
+		laminaPrincipal.add(labelImagenAuto);
+		
+		JButton buscarAuto = new JButton("");
+		buscarAuto.setIcon(new ImageIcon("C:\\Users\\ArielPaez\\Desktop\\proyectosJava\\concesionarioDeAuto\\ConcesionarioDeAutos\\src\\icon\\registroAuto\\buscar.jpg"));
+		buscarAuto.setBounds(160, 253, 20, 20);
+		laminaPrincipal.add(buscarAuto);
 		
 		ControlRegistroAuto cAN=new ControlRegistroAuto(this);
 		
@@ -133,7 +144,4 @@ public class RegistroAutoNuevo extends JFrame {
 	public void setCantidad(String cantidad) {
 		this.cantidad.setText(cantidad);
 	}
-	
-	 
-
 }
