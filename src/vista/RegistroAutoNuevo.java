@@ -19,6 +19,7 @@ public class RegistroAutoNuevo extends JFrame {
 	private JButton registrarAutoNuevo;
 	private JButton cancelar;
 	private JTextField cantidad;
+	private JButton buscarAuto ;
 	
 	public RegistroAutoNuevo() {
 		
@@ -89,7 +90,7 @@ public class RegistroAutoNuevo extends JFrame {
 		labelImagenAuto.setBounds(31, 256, 84, 20);
 		laminaPrincipal.add(labelImagenAuto);
 		
-		JButton buscarAuto = new JButton("");
+		buscarAuto = new JButton("");
 		buscarAuto.setIcon(new ImageIcon("C:\\Users\\ArielPaez\\Desktop\\proyectosJava\\concesionarioDeAuto\\ConcesionarioDeAutos\\src\\icon\\registroAuto\\buscar.jpg"));
 		buscarAuto.setBounds(160, 253, 20, 20);
 		laminaPrincipal.add(buscarAuto);
@@ -100,7 +101,7 @@ public class RegistroAutoNuevo extends JFrame {
 		//Eventos botones.
 		this.registrarAutoNuevo.addActionListener(cAN);
 		this.cancelar.addActionListener(cAN);
-		
+		this.buscarAuto.addActionListener(cAN);
 		
 	}
 
@@ -144,4 +145,10 @@ public class RegistroAutoNuevo extends JFrame {
 	public void setCantidad(String cantidad) {
 		this.cantidad.setText(cantidad);
 	}
+
+	public JButton getBuscarAuto() {
+		return buscarAuto;
+	}
+	
+	
 }

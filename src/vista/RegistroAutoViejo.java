@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import controlador.ControlRegistroAuto;
+import javax.swing.ImageIcon;
 
 public class RegistroAutoViejo extends JFrame {
 	 
@@ -23,15 +24,16 @@ public class RegistroAutoViejo extends JFrame {
 	private JTextField cantidadKm;
 	private JTextField matricula;
 	private JTextField dniDuenioAnterior;
+	private JButton buscarAuto ;
 	
 	public RegistroAutoViejo() {
 		
 		getContentPane().setLayout(null);
 		
 		JPanel laminaPrincipal = new JPanel();
-		setSize(315,427);
+		setSize(315,460);
 		setLocationRelativeTo(null);
-		laminaPrincipal.setBounds(0, 0, 299, 394);
+		laminaPrincipal.setBounds(0, 0, 299, 421);
 		getContentPane().add(laminaPrincipal);
 		laminaPrincipal.setLayout(null);
 		
@@ -71,11 +73,11 @@ public class RegistroAutoViejo extends JFrame {
 		laminaPrincipal.add(color);
 		
 		registrarAutoViejo = new JButton("REGISTRAR");
-		registrarAutoViejo.setBounds(10, 352, 121, 23);
+		registrarAutoViejo.setBounds(10, 387, 121, 23);
 		laminaPrincipal.add(registrarAutoViejo);
 		
 		cancelar = new JButton("CANCELAR");
-		cancelar.setBounds(158, 352, 121, 23);
+		cancelar.setBounds(158, 387, 121, 23);
 		laminaPrincipal.add(cancelar);
 		
 		JLabel labelKM = new JLabel("KM");
@@ -108,13 +110,23 @@ public class RegistroAutoViejo extends JFrame {
 		dniDuenioAnterior.setBounds(160, 299, 129, 20);
 		laminaPrincipal.add(dniDuenioAnterior);
 		
+		JLabel labelImagenAuto = new JLabel("IMAGEN AUTO");
+		labelImagenAuto.setFont(new Font("Arial", Font.BOLD, 12));
+		labelImagenAuto.setBounds(31, 345, 84, 20);
+		laminaPrincipal.add(labelImagenAuto);
+		
+		buscarAuto = new JButton("");
+		buscarAuto.setIcon(new ImageIcon("C:\\Users\\ArielPaez\\Desktop\\proyectosJava\\concesionarioDeAuto\\ConcesionarioDeAutos\\src\\icon\\registroAuto\\buscar.jpg"));
+		buscarAuto.setBounds(160, 342, 20, 20);
+		laminaPrincipal.add(buscarAuto);
+		
 		ControlRegistroAuto cAN=new ControlRegistroAuto(this);
 		
 		
 		//Eventos botones.
 		this.registrarAutoViejo.addActionListener(cAN);
 		this.cancelar.addActionListener(cAN);
-		
+		this.buscarAuto.addActionListener(cAN);
 		
 	}
 
@@ -182,5 +194,7 @@ public class RegistroAutoViejo extends JFrame {
 		this.dniDuenioAnterior.setText(dniDuenioAnterior);
 	}
 	 
- 
+	public JButton getBuscarAuto() {
+		return buscarAuto;
+	}
 }
