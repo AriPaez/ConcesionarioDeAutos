@@ -65,7 +65,7 @@ public class BBDDCompraAuto {
 		
 	}
 
-	public void cargarJComboboxMarcaModelo() {
+	public void cargarJComboboxMarcaModeloAutoNuevo() {
 			
 		ResultSet tablaMarcas=null;
 		ResultSet tablaModelos=null;
@@ -124,7 +124,7 @@ public class BBDDCompraAuto {
 	}
 	
 	//Cambia los modelos de autos al detectar cambio de marca del JComboBox.
-	public void cambiarJComboboxModelo(String comboBoxMarcaSeleccionado)
+	public void cambiarJComboboxModeloAutoNuevo(String comboBoxMarcaSeleccionado)
 	{
 			
 			//Agrega los modelos de autos al combobox modelos.
@@ -138,7 +138,7 @@ public class BBDDCompraAuto {
 			  
 	}
 	
-	public void cargarTablaMarcaModelo(String comboBoxMarcaSeleccionado,String comboBoxModeloSeleccionado)
+	public void cargarTablaMarcaModeloAutoNuevo(String comboBoxMarcaSeleccionado,String comboBoxModeloSeleccionado)
 	{
 		ResultSet tablaAutoNuevo;
 		
@@ -178,10 +178,155 @@ public class BBDDCompraAuto {
 		compraAutoNuevo.setColorCompra((String)compraAutoNuevo.getTabla().getValueAt(filaSeleccionada, 2));
 	}
 	
+	 
+
+	//Compra de auto viejo.
+	 
+	
 	public void comprarAutoViejo() {
 
+		try 
+		{
+			CallableStatement comprarAutoViejo = conexionBBDD.getConexionBBDD()
+			.prepareCall("{call comprarAutoViejo(?,?,?,?)}");
+			
+			comprarAutoViejo.setString(1,compraAutoViejo.getDniCliente());
+			comprarAutoViejo.setString(2,compraAutoViejo.getMarcaCompra());
+			comprarAutoViejo.setString(3,compraAutoViejo.getModeloCompra());
+			comprarAutoViejo.setString(4,compraAutoViejo.getColorCompra());
+			
+			comprarAutoViejo.execute();
+			
+
+			JOptionPane.showMessageDialog(null,"COMPRA REALIZADA CON ÉXITO" ,"BBDD", 1, null);
+			
+			compraAutoViejo.dispose();
+			
+			Secretario s=new Secretario();
+			s.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			s.setVisible(true);
+			 
+		}
+		catch (SQLException e)
+		{
+		 
+			JOptionPane.showMessageDialog(null,e.getMessage() ,"BBDD", 2, null);
+			
+		}
+		
 	}
 
+	public void cargarJComboboxMarcaModeloAutoViejo() {
+			
+		ResultSet tablaMarcas=null;
+		ResultSet tablaModelos=null;
+		
+		try 
+		{
+			CallableStatement mostrarMarcasAutosViejos = conexionBBDD.getConexionBBDD()
+			.prepareCall("{call mostrarMarcasAutosViejos()}");
+		
+			tablaMarcas=mostrarMarcasAutosViejos.executeQuery();
+			
+			CallableStatement mostrarModelosAutosViejos = conexionBBDD.getConexionBBDD()
+			.prepareCall("{call mostrarModelosAutosViejos()}");
+				
+			tablaModelos=mostrarModelosAutosViejos.executeQuery();
+			
+			 
+			conjuntoModelos=new LinkedList<String>();
+			conjuntoMarcas=new LinkedList<String>();
+			 
+			String primerRegistroMarca = null;
+			boolean primerRegistroMarcaC=false;
+			
+			while(tablaMarcas.next())
+			{
+				if(!primerRegistroMarcaC)
+				{
+					primerRegistroMarca=tablaMarcas.getString(1);
+					primerRegistroMarcaC=true;
+				}
+				
+				
+				this.compraAutoViejo.getMarca().addItem(tablaMarcas.getString(1));
+			}
+			 
+		
+			while(tablaModelos.next())
+			{
+				conjuntoMarcas.add(tablaModelos.getString(1));
+				conjuntoModelos.add(tablaModelos.getString(2));
+				
+				if(primerRegistroMarca.equals(tablaModelos.getString(1)))
+				{
+					this.compraAutoViejo.getModelo().addItem(tablaModelos.getString(2));
+				}
+			}
+		 
+			
+		}
+		catch (SQLException e)
+		{
+		 
+			e.printStackTrace();
+		}
+	 
+	}
 	
+	//Cambia los modelos de autos al detectar cambio de marca del JComboBox.
+	public void cambiarJComboboxModeloAutoViejo(String comboBoxMarcaSeleccionado)
+	{
+			
+			//Agrega los modelos de autos al combobox modelos.
+			for(int i = 0; i < this.conjuntoMarcas.size(); i++)
+			{
+				if (comboBoxMarcaSeleccionado.equals(conjuntoMarcas.get(i)))
+				{
+					this.compraAutoViejo.getModelo().addItem(this.conjuntoModelos.get(i));
+				}
+			}
+			  
+	}
+	
+	public void cargarTablaMarcaModeloAutoViejo(String comboBoxMarcaSeleccionado,String comboBoxModeloSeleccionado)
+	{
+		ResultSet tablaAutoViejo;
+		
+		  
+		 try 
+			{
+				CallableStatement mostrarAutoViejo = conexionBBDD.getConexionBBDD()
+				.prepareCall("{call mostrarAutoViejo(?,?)}",ResultSet.TYPE_SCROLL_INSENSITIVE,
+				ResultSet.CONCUR_READ_ONLY);
+				
+				mostrarAutoViejo.setString(1,comboBoxMarcaSeleccionado);
+				mostrarAutoViejo.setString(2,comboBoxModeloSeleccionado);
+				
+				tablaAutoViejo=mostrarAutoViejo.executeQuery();
+			
+				modeloTabla=new ModeloTablas(tablaAutoViejo);
+
+				compraAutoViejo.getTabla().setModel(modeloTabla);
+				
+				compraAutoViejo.getTabla().validate();
+				
+				
+			} 
+			catch (SQLException e)
+			{
+				
+				e.printStackTrace();
+			}
+			 
+	}
+	
+	
+	public void cargarJTextFieldCompraAutoViejo(int filaSeleccionada)
+	{
+		compraAutoViejo.setMarcaCompra((String)compraAutoViejo.getTabla().getValueAt(filaSeleccionada, 0));
+		compraAutoViejo.setModeloCompra((String)compraAutoViejo.getTabla().getValueAt(filaSeleccionada, 1));
+		compraAutoViejo.setColorCompra((String)compraAutoViejo.getTabla().getValueAt(filaSeleccionada, 2));
+	}
 
 }

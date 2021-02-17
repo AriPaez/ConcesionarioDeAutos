@@ -64,7 +64,17 @@ public class ControlCompraAuto extends WindowAdapter  implements ActionListener,
 		}
 		else
 		{
-			//compra auto viejo
+			if(botonElegido==compraAutoViejo.getComprar())
+			{
+				 compraAuto.comprarAutoViejo();
+			}
+			else if(botonElegido==compraAutoViejo.getCancelar())
+			{
+				compraAutoViejo.dispose();
+				Secretario s=new Secretario();
+				s.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				s.setVisible(true);
+			}
 		}
 		
 	}
@@ -72,7 +82,15 @@ public class ControlCompraAuto extends WindowAdapter  implements ActionListener,
 	 //Carga marca y todos sus modelos al abrirse por primera vez la ventana CompraAutoNuevo.
 	 public void windowOpened(WindowEvent e)
 	 {
-		 compraAuto.cargarJComboboxMarcaModelo();
+		 if(compraAutoEvento)
+		 {
+			 compraAuto.cargarJComboboxMarcaModeloAutoNuevo();
+		 }
+		 else
+		 {
+			 compraAuto.cargarJComboboxMarcaModeloAutoViejo();
+		 }
+		
 	 }
 
 
@@ -85,29 +103,60 @@ public class ControlCompraAuto extends WindowAdapter  implements ActionListener,
 		String comboBoxMarcaSeleccionado=null;
 		String comboBoxModeloSeleccionado=null;
 		
-		if(this.compraAutoNuevo.getMarca()==comboSeleccionado)
-		{
-			if (e.getStateChange() == ItemEvent.SELECTED)
-			{ 
-				
-				
-				comboBoxMarcaSeleccionado=(String) compraAutoNuevo.getMarca().getSelectedItem();
-				 
-				compraAutoNuevo.getModelo().removeAllItems();
-				
-				compraAuto.cambiarJComboboxModelo(comboBoxMarcaSeleccionado);
-			}
-		}
-		else 
-		{
-			if (e.getStateChange() == ItemEvent.SELECTED)
+		if(compraAutoEvento)
+		 {
+			if(this.compraAutoNuevo.getMarca()==comboSeleccionado)
 			{
-				comboBoxModeloSeleccionado=(String) compraAutoNuevo.getModelo().getSelectedItem();
-
-				comboBoxMarcaSeleccionado=(String) compraAutoNuevo.getMarca().getSelectedItem();
-				 
-				compraAuto.cargarTablaMarcaModelo(comboBoxMarcaSeleccionado,comboBoxModeloSeleccionado);
-			}	  
+				if (e.getStateChange() == ItemEvent.SELECTED)
+				{ 
+					
+					
+					comboBoxMarcaSeleccionado=(String) compraAutoNuevo.getMarca().getSelectedItem();
+					 
+					compraAutoNuevo.getModelo().removeAllItems();
+					
+					compraAuto.cambiarJComboboxModeloAutoNuevo(comboBoxMarcaSeleccionado);
+				}
+			}
+			else 
+			{
+				if (e.getStateChange() == ItemEvent.SELECTED)
+				{
+					comboBoxModeloSeleccionado=(String) compraAutoNuevo.getModelo().getSelectedItem();
+	
+					comboBoxMarcaSeleccionado=(String) compraAutoNuevo.getMarca().getSelectedItem();
+					 
+					compraAuto.cargarTablaMarcaModeloAutoNuevo(comboBoxMarcaSeleccionado,comboBoxModeloSeleccionado);
+				}	  
+			}
+		 }
+		else
+		{
+			if(this.compraAutoViejo.getMarca()==comboSeleccionado)
+			{
+				if (e.getStateChange() == ItemEvent.SELECTED)
+				{ 
+					
+					
+					comboBoxMarcaSeleccionado=(String) compraAutoViejo.getMarca().getSelectedItem();
+					 
+					compraAutoViejo.getModelo().removeAllItems();
+					
+					compraAuto.cambiarJComboboxModeloAutoViejo(comboBoxMarcaSeleccionado);
+				}
+			}
+			else 
+			{
+				if (e.getStateChange() == ItemEvent.SELECTED)
+				{
+					comboBoxModeloSeleccionado=(String) compraAutoViejo.getModelo().getSelectedItem();
+	
+					comboBoxMarcaSeleccionado=(String) compraAutoViejo.getMarca().getSelectedItem();
+					 
+					compraAuto.cargarTablaMarcaModeloAutoViejo(comboBoxMarcaSeleccionado,comboBoxModeloSeleccionado);
+				}	  
+			}
+			
 		}
 	}
 
@@ -115,9 +164,20 @@ public class ControlCompraAuto extends WindowAdapter  implements ActionListener,
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		//Se determina la fila de tabla en la que se ha hecho click.
-		this.filaSeleccionada=compraAutoNuevo.getTabla().rowAtPoint(e.getPoint());
 		
-		compraAuto.cargarJTextFieldCompraAutoNuevo(filaSeleccionada);
+		if(compraAutoEvento)
+		{
+			this.filaSeleccionada=compraAutoNuevo.getTabla().rowAtPoint(e.getPoint());
+			
+			compraAuto.cargarJTextFieldCompraAutoNuevo(filaSeleccionada);
+		}
+		else
+		{
+			this.filaSeleccionada=compraAutoViejo.getTabla().rowAtPoint(e.getPoint());
+			
+			compraAuto.cargarJTextFieldCompraAutoViejo(filaSeleccionada);
+		}
+		
 	}
 
 	//Los siguientes metodos no son utlizados, sin embargo son sobreescritos
