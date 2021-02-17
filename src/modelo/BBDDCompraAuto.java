@@ -187,20 +187,20 @@ public class BBDDCompraAuto {
 
 		try 
 		{
-			CallableStatement comprarAutoNuevo = conexionBBDD.getConexionBBDD()
-			.prepareCall("{call comprarAutoNuevo(?,?,?,?)}");
+			CallableStatement comprarAutoViejo = conexionBBDD.getConexionBBDD()
+			.prepareCall("{call comprarAutoViejo(?,?,?,?)}");
 			
-			comprarAutoNuevo.setString(1,compraAutoNuevo.getDniCliente());
-			comprarAutoNuevo.setString(2,compraAutoNuevo.getMarcaCompra());
-			comprarAutoNuevo.setString(3,compraAutoNuevo.getModeloCompra());
-			comprarAutoNuevo.setString(4,compraAutoNuevo.getColorCompra());
+			comprarAutoViejo.setString(1,compraAutoViejo.getDniCliente());
+			comprarAutoViejo.setString(2,compraAutoViejo.getMarcaCompra());
+			comprarAutoViejo.setString(3,compraAutoViejo.getModeloCompra());
+			comprarAutoViejo.setString(4,compraAutoViejo.getColorCompra());
 			
-			comprarAutoNuevo.execute();
+			comprarAutoViejo.execute();
 			
 
 			JOptionPane.showMessageDialog(null,"COMPRA REALIZADA CON ÉXITO" ,"BBDD", 1, null);
 			
-			compraAutoNuevo.dispose();
+			compraAutoViejo.dispose();
 			
 			Secretario s=new Secretario();
 			s.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -291,25 +291,25 @@ public class BBDDCompraAuto {
 	
 	public void cargarTablaMarcaModeloAutoViejo(String comboBoxMarcaSeleccionado,String comboBoxModeloSeleccionado)
 	{
-		ResultSet tablaAutoNuevo;
+		ResultSet tablaAutoViejo;
 		
 		  
 		 try 
 			{
-				CallableStatement mostrarAutoNuevo = conexionBBDD.getConexionBBDD()
-				.prepareCall("{call mostrarAutoNuevo(?,?)}",ResultSet.TYPE_SCROLL_INSENSITIVE,
+				CallableStatement mostrarAutoViejo = conexionBBDD.getConexionBBDD()
+				.prepareCall("{call mostrarAutoViejo(?,?)}",ResultSet.TYPE_SCROLL_INSENSITIVE,
 				ResultSet.CONCUR_READ_ONLY);
 				
-				mostrarAutoNuevo.setString(1,comboBoxMarcaSeleccionado);
-				mostrarAutoNuevo.setString(2,comboBoxModeloSeleccionado);
+				mostrarAutoViejo.setString(1,comboBoxMarcaSeleccionado);
+				mostrarAutoViejo.setString(2,comboBoxModeloSeleccionado);
 				
-				tablaAutoNuevo=mostrarAutoNuevo.executeQuery();
+				tablaAutoViejo=mostrarAutoViejo.executeQuery();
 			
-				modeloTabla=new ModeloTablas(tablaAutoNuevo);
+				modeloTabla=new ModeloTablas(tablaAutoViejo);
 
-				compraAutoNuevo.getTabla().setModel(modeloTabla);
+				compraAutoViejo.getTabla().setModel(modeloTabla);
 				
-				compraAutoNuevo.getTabla().validate();
+				compraAutoViejo.getTabla().validate();
 				
 				
 			} 
@@ -324,9 +324,9 @@ public class BBDDCompraAuto {
 	
 	public void cargarJTextFieldCompraAutoViejo(int filaSeleccionada)
 	{
-		compraAutoNuevo.setMarcaCompra((String)compraAutoNuevo.getTabla().getValueAt(filaSeleccionada, 0));
-		compraAutoNuevo.setModeloCompra((String)compraAutoNuevo.getTabla().getValueAt(filaSeleccionada, 1));
-		compraAutoNuevo.setColorCompra((String)compraAutoNuevo.getTabla().getValueAt(filaSeleccionada, 2));
+		compraAutoViejo.setMarcaCompra((String)compraAutoViejo.getTabla().getValueAt(filaSeleccionada, 0));
+		compraAutoViejo.setModeloCompra((String)compraAutoViejo.getTabla().getValueAt(filaSeleccionada, 1));
+		compraAutoViejo.setColorCompra((String)compraAutoViejo.getTabla().getValueAt(filaSeleccionada, 2));
 	}
 
 }
