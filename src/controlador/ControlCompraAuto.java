@@ -117,9 +117,7 @@ public class ControlCompraAuto extends WindowAdapter  implements ActionListener,
 		//Se determina la fila de tabla en la que se ha hecho click.
 		this.filaSeleccionada=compraAutoNuevo.getTabla().rowAtPoint(e.getPoint());
 		
-		compraAutoNuevo.setMarcaCompra((String)compraAutoNuevo.getTabla().getValueAt(filaSeleccionada, 0));
-		compraAutoNuevo.setModeloCompra((String)compraAutoNuevo.getTabla().getValueAt(filaSeleccionada, 1));
-		compraAutoNuevo.setColorCompra((String)compraAutoNuevo.getTabla().getValueAt(filaSeleccionada, 2));
+		compraAuto.cargarJTFieldCompraAutoNuevo(filaSeleccionada);
 	}
 
 	//Los siguientes metodos no son utlizados, sin embargo son sobreescritos

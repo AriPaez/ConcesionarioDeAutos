@@ -171,6 +171,13 @@ public class BBDDCompraAuto {
 	}
 	
 	
+	public void cargarJTFieldCompraAutoNuevo(int filaSeleccionada)
+	{
+		compraAutoNuevo.setMarcaCompra((String)compraAutoNuevo.getTabla().getValueAt(filaSeleccionada, 0));
+		compraAutoNuevo.setModeloCompra((String)compraAutoNuevo.getTabla().getValueAt(filaSeleccionada, 1));
+		compraAutoNuevo.setColorCompra((String)compraAutoNuevo.getTabla().getValueAt(filaSeleccionada, 2));
+	}
+	
 	public void comprarAutoViejo() {
 
 	}
