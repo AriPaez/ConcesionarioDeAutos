@@ -5,10 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
-import javax.swing.table.AbstractTableModel;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import vista.CompraAutoNuevo;
 import vista.CompraAutoViejo;
+import vista.Secretario;
 
 public class BBDDCompraAuto {
 
@@ -32,6 +34,35 @@ public class BBDDCompraAuto {
 
 	public void comprarAutoNuevo() {
 
+		try 
+		{
+			CallableStatement comprarAutoNuevo = conexionBBDD.getConexionBBDD()
+			.prepareCall("{call comprarAutoNuevo(?,?,?,?)}");
+			
+			comprarAutoNuevo.setString(1,compraAutoNuevo.getDniCliente());
+			comprarAutoNuevo.setString(2,compraAutoNuevo.getMarcaCompra());
+			comprarAutoNuevo.setString(3,compraAutoNuevo.getModeloCompra());
+			comprarAutoNuevo.setString(4,compraAutoNuevo.getColorCompra());
+			
+			comprarAutoNuevo.execute();
+			
+
+			JOptionPane.showMessageDialog(null,"COMPRA REALIZADA CON ÉXITO" ,"BBDD", 1, null);
+			
+			compraAutoNuevo.dispose();
+			
+			Secretario s=new Secretario();
+			s.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			s.setVisible(true);
+			 
+		}
+		catch (SQLException e)
+		{
+		 
+			JOptionPane.showMessageDialog(null,e.getMessage() ,"BBDD", 2, null);
+			
+		}
+		
 	}
 
 	public void cargarJComboboxMarcaModelo() {
@@ -107,7 +138,7 @@ public class BBDDCompraAuto {
 			  
 	}
 	
-	public void cargarJComboboxMarcaModelo(String comboBoxMarcaSeleccionado,String comboBoxModeloSeleccionado)
+	public void cargarTablaMarcaModelo(String comboBoxMarcaSeleccionado,String comboBoxModeloSeleccionado)
 	{
 		ResultSet tablaAutoNuevo;
 		

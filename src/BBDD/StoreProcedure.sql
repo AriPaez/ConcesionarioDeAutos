@@ -153,7 +153,7 @@ ALTER PROCEDURE registrarCliente(@dniCliente VARCHAR(8),
 AS
 BEGIN TRY
 	IF (@dniCliente='' OR @dniSecretario='' OR @primerNombre='' 
-	OR @segundoNombre='' OR @apellido='' OR  @direccion='' OR  @telefono='')
+	 OR @apellido='' OR  @direccion='' OR  @telefono='')
 	BEGIN 
 			RAISERROR('CAMPOS VACIOS. INGRESE UN VALOR!',14,1)
 	END
@@ -292,9 +292,78 @@ on(aM.idAutoMovil=aN.idAutoMovil)
 
  --mostrar todos los campos de la entidad auto nuevo.
  CREATE PROCEDURE mostrarAutoNuevo (@marca VARCHAR(30),@modelo VARCHAR(30))
- AS
+AS
  SELECT aM.marca,m.modelo,m.color,aN.cantidad
  FROM autoMovil AS aM INNER JOIN modelo AS m
  ON(m.idAutoMovil=aM.idAutoMovil) INNER JOIN
  autoNuevo AS aN ON(aN.idAutoMovil=m.idAutoMovil)
  WHERE marca=@marca and modelo=@modelo
+
+ --comprar auto nuevo
+ ALTER PROCEDURE comprarAutoNuevo (@dniCliente VARCHAR(8),@marca VARCHAR(30),
+ @modelo VARCHAR(30),@color VARCHAR(15))
+ AS
+ BEGIN TRY
+	IF (@dniCliente='')
+	BEGIN 
+			RAISERROR('CAMPO VACIO. INGRESE DNI DEL CLIENTE!',14,1)
+	END
+	ELSE IF NOT EXISTS (SELECT dniCliente FROM cliente WHERE dniCliente=@dniCliente)
+	BEGIN
+		RAISERROR ('ERROR. EL CLIENTE NO EXISTE EN LA BBDD',14,1)
+	END
+	ELSE IF NOT EXISTS ( SELECT aM.idAutoMovil
+	FROM autoMovil AS aM INNER JOIN modelo AS m
+	ON(m.idAutoMovil=aM.idAutoMovil) INNER JOIN
+	autoNuevo AS aN ON(aN.idAutoMovil=m.idAutoMovil)
+	WHERE marca=@marca AND modelo=@modelo AND color=@color)
+	BEGIN 
+			RAISERROR('NO EXISTE NINGUN AUTO CON LAS CARACTERISTICAS INGRESADAS!',14,1)
+	END
+	ELSE IF (SELECT aN.cantidad
+	 FROM autoMovil AS aM INNER JOIN modelo AS m
+	 ON(m.idAutoMovil=aM.idAutoMovil) INNER JOIN
+	 autoNuevo AS aN ON(aN.idAutoMovil=m.idAutoMovil)
+	 WHERE marca=@marca and modelo=@modelo AND color=@color)=0
+	BEGIN
+		RAISERROR ('NO HAY STOCK',14,1)
+	END
+	ELSE IF(LEN(@dniCliente)<>8)
+	BEGIN 
+			RAISERROR('¡EL DNI DEBE SER DE 8 DIGÍTOS!',14,1)
+	END
+	ELSE IF (ISNUMERIC(@dniCliente)=0)
+	BEGIN
+			RAISERROR('¡EL NRO. DE DNI DEBE SER DE ENTERO!',14,1)
+	END
+	ELSE
+	BEGIN
+		--update de compra de cliente.
+		UPDATE [dbo].[autoMovil] SET dniCliente=@dniCliente
+		WHERE marca=@marca 
+		--update de cantidad de autos nuevos.
+		UPDATE [dbo].[autoNuevo] SET cantidad-=1
+		FROM autoMovil AS aM INNER JOIN modelo AS m
+		ON(m.idAutoMovil=aM.idAutoMovil) INNER JOIN
+		autoNuevo AS aN ON(aN.idAutoMovil=m.idAutoMovil)
+		WHERE marca=@marca AND modelo=@modelo AND color=@color 
+	END
+
+ END TRY
+ BEGIN CATCH
+		
+		DECLARE @mensajeDeError VARCHAR(100);
+		SELECT @mensajeDeError=ERROR_MESSAGE()
+		RAISERROR(@mensajeDeError,14,1);
+
+ END CATCH
+
+ 
+
+
+ select *
+ from autoMovil as a inner join cliente as c
+ on(c.dniCliente=a.dniCliente)
+
+ select *
+ from autoMovil

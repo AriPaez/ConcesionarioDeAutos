@@ -83,16 +83,19 @@ public class CompraAutoNuevo extends JFrame  {
 		laminaPrincipal.add(labelColorCompra);
 		
 		marcaCompra = new JTextField();
+		marcaCompra.setEditable(false);
 		marcaCompra.setColumns(10);
 		marcaCompra.setBounds(24, 416, 145, 20);
 		laminaPrincipal.add(marcaCompra);
 		
 		modeloCompra = new JTextField();
+		modeloCompra.setEditable(false);
 		modeloCompra.setColumns(10);
 		modeloCompra.setBounds(197, 416, 119, 20);
 		laminaPrincipal.add(modeloCompra);
 		
 		colorCompra = new JTextField();
+		colorCompra.setEditable(false);
 		colorCompra.setColumns(10);
 		colorCompra.setBounds(367, 416, 80, 20);
 		laminaPrincipal.add(colorCompra);

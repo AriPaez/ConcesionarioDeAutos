@@ -26,7 +26,7 @@ public class ControlCompraAuto extends WindowAdapter  implements ActionListener,
 	//en que clase se ha producido el evento, si en compraAutoNuevo
 	//o en compraAutoViejo.
 	private boolean compraAutoEvento;
-	private int filaSelecciona;
+	private int filaSeleccionada;
 	
 	public ControlCompraAuto(CompraAutoNuevo cAN)
 	{
@@ -56,6 +56,7 @@ public class ControlCompraAuto extends WindowAdapter  implements ActionListener,
 			}
 			else if(botonElegido==compraAutoNuevo.getCancelar())
 			{
+				compraAutoNuevo.dispose();
 				Secretario s=new Secretario();
 				s.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				s.setVisible(true);
@@ -63,7 +64,7 @@ public class ControlCompraAuto extends WindowAdapter  implements ActionListener,
 		}
 		else
 		{
-			
+			//compra auto viejo
 		}
 		
 	}
@@ -105,23 +106,20 @@ public class ControlCompraAuto extends WindowAdapter  implements ActionListener,
 
 				comboBoxMarcaSeleccionado=(String) compraAutoNuevo.getMarca().getSelectedItem();
 				 
-				compraAuto.cargarJComboboxMarcaModelo(comboBoxMarcaSeleccionado,comboBoxModeloSeleccionado);
-			}
- 			  
+				compraAuto.cargarTablaMarcaModelo(comboBoxMarcaSeleccionado,comboBoxModeloSeleccionado);
+			}	  
 		}
-		
-		
 	}
 
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		//Se determina la fila de tabla en la que se ha hecho click.
-		this.filaSelecciona=compraAutoNuevo.getTabla().rowAtPoint(e.getPoint());
+		this.filaSeleccionada=compraAutoNuevo.getTabla().rowAtPoint(e.getPoint());
 		
-		compraAutoNuevo.setMarcaCompra((String)compraAutoNuevo.getTabla().getValueAt(filaSelecciona, 0));
-		compraAutoNuevo.setModeloCompra((String)compraAutoNuevo.getTabla().getValueAt(filaSelecciona, 1));
-		compraAutoNuevo.setColorCompra((String)compraAutoNuevo.getTabla().getValueAt(filaSelecciona, 2));
+		compraAutoNuevo.setMarcaCompra((String)compraAutoNuevo.getTabla().getValueAt(filaSeleccionada, 0));
+		compraAutoNuevo.setModeloCompra((String)compraAutoNuevo.getTabla().getValueAt(filaSeleccionada, 1));
+		compraAutoNuevo.setColorCompra((String)compraAutoNuevo.getTabla().getValueAt(filaSeleccionada, 2));
 	}
 
 	//Los siguientes metodos no son utlizados, sin embargo son sobreescritos
