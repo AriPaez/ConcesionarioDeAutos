@@ -1,15 +1,18 @@
 package controlador;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import modelo.BBDDAutos;
-import vista.Login;
+import vista.CompraAutoNuevo;
 import vista.RegistroAutoNuevo;
 import vista.RegistroAutoViejo;
 import vista.Secretario;
@@ -60,7 +63,7 @@ public class ControlRegistroAuto implements ActionListener{
 				JFileChooser explorador = new JFileChooser();
 				
 				 FileNameExtensionFilter filtrar= new FileNameExtensionFilter
-				("Escoja una imagen", "png");
+				("Escoja una imagen", "png","jpg");
 				 explorador.setFileFilter(filtrar);
 				 
 				 int returnVal = explorador.showOpenDialog(registroAutoNuevo);
@@ -93,6 +96,28 @@ public class ControlRegistroAuto implements ActionListener{
 			{
 				registroAuto.registrarAutoViejo();
 			}
+			else if(botonElegido==registroAutoViejo.getBuscarImagenAuto())
+			{
+				JFileChooser explorador = new JFileChooser();
+				
+				 FileNameExtensionFilter filtrar= new FileNameExtensionFilter
+				("Escoja una imagen", "png","jpg");
+				 explorador.setFileFilter(filtrar);
+				 
+				 int returnVal = explorador.showOpenDialog(registroAutoViejo);
+				 
+				 if(returnVal==JFileChooser.APPROVE_OPTION) 
+				 {
+		    		
+					 this.registroAutoViejo.setRutaDeImagen(
+					explorador.getSelectedFile().getAbsolutePath());
+		    		
+					 
+		    		JOptionPane.showMessageDialog(null,"IMAGEN CARGADA CORRECTAMENTE", 
+		    		"IMAGEN", 1, null);
+					
+				 }
+			}
 			else
 			{
 				//Cierre de la ventana registroAutoViejo.
@@ -105,5 +130,7 @@ public class ControlRegistroAuto implements ActionListener{
 		}
 		 
 	}
+	
+	
 
 }

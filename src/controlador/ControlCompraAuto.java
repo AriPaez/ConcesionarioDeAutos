@@ -167,15 +167,19 @@ public class ControlCompraAuto extends WindowAdapter  implements ActionListener,
 		
 		if(compraAutoEvento)
 		{
-			this.filaSeleccionada=compraAutoNuevo.getTabla().rowAtPoint(e.getPoint());
-			
+			this.filaSeleccionada=compraAutoNuevo.getTabla().rowAtPoint(e.getPoint());	
 			compraAuto.cargarJTextFieldCompraAutoNuevo(filaSeleccionada);
+			
+			compraAuto.mostrarImagenEnCompraAuto(filaSeleccionada);
+		
 		}
 		else
 		{
 			this.filaSeleccionada=compraAutoViejo.getTabla().rowAtPoint(e.getPoint());
-			
+	
 			compraAuto.cargarJTextFieldCompraAutoViejo(filaSeleccionada);
+			
+			compraAuto.mostrarImagenEnCompraAuto(filaSeleccionada);
 		}
 		
 	}

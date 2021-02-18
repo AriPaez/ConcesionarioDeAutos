@@ -99,9 +99,9 @@ END CATCH
  
 -- registrar auto viejo
 
-CREATE PROCEDURE registrarAutoViejo(@marca varchar(30),@modelo VARCHAR(30),
+ALTER PROCEDURE registrarAutoViejo(@marca varchar(30),@modelo VARCHAR(30),
 @color VARCHAR(15),@matricula VARCHAR(7),@cantidadKilometros
-FLOAT,@dniDueñoAnterior VARCHAR(8))
+FLOAT,@dniDueñoAnterior VARCHAR(8),@rutaImagenAuto VARCHAR(200))
 AS
 BEGIN TRY
 	IF (@marca='' OR @modelo='' OR 
@@ -112,9 +112,9 @@ BEGIN TRY
 	ELSE
 			--Insersion de autoMovil
 			INSERT INTO [dbo].[autoMovil]
-					   (marca)
+					   (marca,imagenAuto)
 				 VALUES
-					   (@marca)
+					   (@marca,@rutaImagenAuto)
 			--Insersion de modelo
 			INSERT INTO [dbo].[modelo]
 					   ([idAutoMovil]
@@ -441,3 +441,13 @@ AS
 		RAISERROR(@mensajeDeError,14,1);
 
  END CATCH
+
+ --mostrar imagenAutoNuevo.
+
+ CREATE PROCEDURE mostrarImagenAutoNuevo()
+ AS
+ select
+ from 
+
+
+ --Mostrar iamgenAutoViejo

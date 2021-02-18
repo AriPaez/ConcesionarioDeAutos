@@ -24,7 +24,8 @@ public class RegistroAutoViejo extends JFrame {
 	private JTextField cantidadKm;
 	private JTextField matricula;
 	private JTextField dniDuenioAnterior;
-	private JButton buscarAuto ;
+	private JButton buscarImagenAuto ;
+	private String rutaDeImagen;
 	
 	public RegistroAutoViejo() {
 		
@@ -115,10 +116,10 @@ public class RegistroAutoViejo extends JFrame {
 		labelImagenAuto.setBounds(31, 345, 84, 20);
 		laminaPrincipal.add(labelImagenAuto);
 		
-		buscarAuto = new JButton("");
-		buscarAuto.setIcon(new ImageIcon("C:\\Users\\ArielPaez\\Desktop\\proyectosJava\\concesionarioDeAuto\\ConcesionarioDeAutos\\src\\icon\\registroAuto\\buscar.jpg"));
-		buscarAuto.setBounds(160, 342, 20, 20);
-		laminaPrincipal.add(buscarAuto);
+		buscarImagenAuto = new JButton("");
+		buscarImagenAuto.setIcon(new ImageIcon("C:\\Users\\ArielPaez\\Desktop\\proyectosJava\\concesionarioDeAuto\\ConcesionarioDeAutos\\src\\icon\\registroAuto\\buscar.jpg"));
+		buscarImagenAuto.setBounds(160, 342, 20, 20);
+		laminaPrincipal.add(buscarImagenAuto);
 		
 		ControlRegistroAuto cAN=new ControlRegistroAuto(this);
 		
@@ -126,7 +127,7 @@ public class RegistroAutoViejo extends JFrame {
 		//Eventos botones.
 		this.registrarAutoViejo.addActionListener(cAN);
 		this.cancelar.addActionListener(cAN);
-		this.buscarAuto.addActionListener(cAN);
+		this.buscarImagenAuto.addActionListener(cAN);
 		
 	}
 
@@ -194,7 +195,16 @@ public class RegistroAutoViejo extends JFrame {
 		this.dniDuenioAnterior.setText(dniDuenioAnterior);
 	}
 	 
-	public JButton getBuscarAuto() {
-		return buscarAuto;
+	public JButton getBuscarImagenAuto() {
+		return buscarImagenAuto;
 	}
+	
+	public String getRutaDeImagen() {
+		return rutaDeImagen;
+	}
+
+	public void setRutaDeImagen(String rutaDeImagen) {
+		this.rutaDeImagen = rutaDeImagen;
+	}
+
 }

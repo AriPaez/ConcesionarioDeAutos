@@ -69,7 +69,7 @@ public class BBDDAutos{
 		try 
 		{
 			CallableStatement registrarAutoViejo=conexionBBDD.getConexionBBDD().
-			prepareCall("{call registrarAutoViejo(?,?,?,?,?,?)}");
+			prepareCall("{call registrarAutoViejo(?,?,?,?,?,?,?)}");
 			
 			 
 			registrarAutoViejo.setString(1,registroAutoViejo.getMarca());
@@ -78,6 +78,7 @@ public class BBDDAutos{
 			registrarAutoViejo.setString(4,registroAutoViejo.getMatricula());
 			registrarAutoViejo.setFloat(5,registroAutoViejo.getCantidadKm());
 			registrarAutoViejo.setString(6,registroAutoViejo.getDniDuenioAnterior());
+			registrarAutoViejo.setString(7,registroAutoViejo.getRutaDeImagen());
 			
 			registrarAutoViejo.execute();
 			

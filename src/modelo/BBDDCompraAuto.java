@@ -1,10 +1,13 @@
 package modelo;
 
+import java.awt.Image;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -20,11 +23,13 @@ public class BBDDCompraAuto {
 	private LinkedList<String> conjuntoMarcas;
 	private LinkedList<String> conjuntoModelos;
 	private ModeloTablas modeloTabla;
+	//Permite determina a que metodo constructor se ha invocado.
+	private boolean eventoCompraAuto;
 	
 	public BBDDCompraAuto(CompraAutoNuevo cAN) {
 		conexionBBDD = new BBDD();
 		compraAutoNuevo = cAN;
-		
+		eventoCompraAuto=true;
 	}
 
 	public BBDDCompraAuto(CompraAutoViejo cAV) {
@@ -321,6 +326,83 @@ public class BBDDCompraAuto {
 			 
 	}
 	
+	
+	public void mostrarImagenEnCompraAuto(int filaSeleccionada)
+	{
+		ResultSet tablaDireccionImagen=null;
+		String directorioImagen = null;
+		
+			if(eventoCompraAuto)
+			{
+				try 
+				{
+					CallableStatement mostrarImagenAuto = conexionBBDD.getConexionBBDD()
+					 .prepareCall("{call mostrarImagenAuto(?,?,?)}");
+					
+					mostrarImagenAuto.setString(1,(String)compraAutoNuevo.getTabla().getValueAt(filaSeleccionada, 0));
+					mostrarImagenAuto.setString(2,(String)compraAutoNuevo.getTabla().getValueAt(filaSeleccionada, 1));
+					mostrarImagenAuto.setString(3,(String)compraAutoNuevo.getTabla().getValueAt(filaSeleccionada, 2));
+					
+					tablaDireccionImagen=mostrarImagenAuto.executeQuery();
+					
+					while(tablaDireccionImagen.next())
+					{
+						directorioImagen=tablaDireccionImagen.getString(1);
+					}
+					
+					Icon imagenAjustada=ajustarImagenAJLabel(new ImageIcon(directorioImagen));
+					
+					compraAutoNuevo.getFotoAuto().setIcon(imagenAjustada);
+				} 
+				catch (SQLException e)
+				{
+					e.printStackTrace();
+				}
+				
+			}
+			else
+			{
+				try 
+				{
+					CallableStatement mostrarImagenAuto = conexionBBDD.getConexionBBDD()
+					 .prepareCall("{call mostrarImagenAuto(?,?,?)}");
+					
+					mostrarImagenAuto.setString(1,(String)compraAutoViejo.getTabla().getValueAt(filaSeleccionada, 0));
+					mostrarImagenAuto.setString(2,(String)compraAutoViejo.getTabla().getValueAt(filaSeleccionada, 1));
+					mostrarImagenAuto.setString(3,(String)compraAutoViejo.getTabla().getValueAt(filaSeleccionada, 2));
+					
+					tablaDireccionImagen=mostrarImagenAuto.executeQuery();
+					
+					while(tablaDireccionImagen.next())
+					{
+						directorioImagen=tablaDireccionImagen.getString(1);
+					}
+					
+					
+					
+					Icon imagenAjustada=ajustarImagenAJLabel(new ImageIcon(directorioImagen));
+					
+					compraAutoViejo.getFotoAuto().setIcon(imagenAjustada);
+					
+				} 
+				catch (SQLException e)
+				{
+					e.printStackTrace();
+				}
+			}
+	}
+	
+	public Icon ajustarImagenAJLabel(ImageIcon  imagen)
+	{
+		
+		CompraAutoNuevo cA=new CompraAutoNuevo();
+		 
+		Image imgEscalada = imagen.getImage().getScaledInstance(cA.getFotoAuto().getWidth(),
+        cA.getFotoAuto().getHeight(), Image.SCALE_SMOOTH);
+        Icon iconoEscalado = new ImageIcon(imgEscalada);
+        
+        return iconoEscalado ;		
+	}
 	
 	public void cargarJTextFieldCompraAutoViejo(int filaSeleccionada)
 	{
