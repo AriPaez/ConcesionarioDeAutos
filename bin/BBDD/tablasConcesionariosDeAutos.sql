@@ -43,7 +43,7 @@ CREATE TABLE autoMovil
 	idAutoMovil INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
 	dniCliente VARCHAR(8),
 	marca VARCHAR(25) NOT NULL,
-	
+	imagenAuto VARCHAR(200)
 	FOREIGN KEY(dniCliente) REFERENCES cliente(dniCliente)
 )
 
