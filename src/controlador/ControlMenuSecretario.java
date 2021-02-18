@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 
 import vista.CompraAutoNuevo;
 import vista.CompraAutoViejo;
+import vista.RegistroTaller;
 import vista.Secretario;
 
 public class ControlMenuSecretario implements ActionListener {
@@ -47,7 +48,10 @@ public class ControlMenuSecretario implements ActionListener {
 		}
 		else
 		{
-			System.out.println("registrar taller");
+			secretario.dispose();
+			RegistroTaller rT=new RegistroTaller();
+			rT.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			rT.setVisible(true);
 		}
 		
 		 
