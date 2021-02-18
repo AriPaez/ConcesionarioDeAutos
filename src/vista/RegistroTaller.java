@@ -1,15 +1,14 @@
 package vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JTextField;
+
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import controlador.ControlRegistroTaller;
 
 public class RegistroTaller extends JFrame {
 	
@@ -60,8 +59,11 @@ public class RegistroTaller extends JFrame {
 			cancelar.setBounds(164, 205, 108, 23);
 			laminaPrincipal.add(cancelar);
 			
-			//Eventos botones.
+			ControlRegistroTaller cRT=new ControlRegistroTaller(this);
 			
+			//Eventos botones.
+			this.registrarTaller.addActionListener(cRT);
+			this.cancelar.addActionListener(cRT);
 			
 			
 	 }

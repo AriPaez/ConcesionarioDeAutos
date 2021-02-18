@@ -444,10 +444,13 @@ AS
 
  --mostrar imagenAutoNuevo.
 
- CREATE PROCEDURE mostrarImagenAutoNuevo()
+ ALTER PROCEDURE [dbo].[mostrarImagenAuto](@marca VARCHAR(30),
+ @modelo VARCHAR(30),@color VARCHAR(15))
  AS
- select
- from 
+ SELECT  TOP 1 a.imagenAuto AS DireccionDeFoto
+ FROM autoMovil AS a INNER JOIN  modelo AS m
+ ON(a.idAutoMovil=m.idAutoMovil)
+ WHERE marca=@marca AND modelo=@modelo AND color=@color 
 
 
  --Mostrar iamgenAutoViejo

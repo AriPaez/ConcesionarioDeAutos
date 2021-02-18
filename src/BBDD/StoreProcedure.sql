@@ -453,4 +453,40 @@ AS
  WHERE marca=@marca AND modelo=@modelo AND color=@color 
 
 
- --Mostrar iamgenAutoViejo
+ --registrar taller
+ ALTER PROCEDURE registrarTaller(@idTaller VARCHAR(30),@descripcion VARCHAR(100))
+ AS
+ BEGIN TRY
+	IF (@idTaller='')
+	BEGIN 
+			RAISERROR('CAMPO VACIO. INGRESE ID TALLER !',14,1)
+	END
+	ELSE IF (@descripcion='')
+	BEGIN
+		RAISERROR('CAMPO VACIO. INGRESE DESCRIPCIÓN !',14,1)
+	END
+	ELSE IF EXISTS ( SELECT idTaller FROM taller WHERE idTaller=@idTaller)
+	BEGIN
+			RAISERROR('ERROR. YA EXISTE EL CÓDIGO TALLER!',14,1)	
+	END
+	ELSE IF (@descripcion='' OR @idTaller='')
+	BEGIN
+			RAISERROR('ERROR. CAMPOS VACIOS!',14,1)	
+	END
+	ELSE
+	BEGIN
+		INSERT INTO [dbo].[taller]
+			   ([idTaller]
+			   ,[descripción])
+		 VALUES
+			   (@idTaller
+			   ,@descripcion)
+	END
+ END TRY
+ BEGIN CATCH
+		DECLARE @mensajeDeError VARCHAR(100);
+		SELECT @mensajeDeError=ERROR_MESSAGE()
+		RAISERROR(@mensajeDeError,14,1);
+
+ END CATCH
+
