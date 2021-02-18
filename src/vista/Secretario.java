@@ -25,6 +25,7 @@ public class Secretario extends JFrame {
 	private JMenuItem autoViejo;
 	private JMenuItem autoNuevo ;
 	private JMenuItem registrarReparacion ;
+	private JMenuItem registrarTaller ;
 	
 	public Secretario() {
 		
@@ -40,7 +41,7 @@ public class Secretario extends JFrame {
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBackground(Color.LIGHT_GRAY);
-		menuBar.setBounds(0, 0, 134, 22);
+		menuBar.setBounds(0, 0, 201, 22);
 		laminaPrincipal.add(menuBar);
 		
 		JMenu compraAuto = new JMenu("VENTA");
@@ -57,6 +58,12 @@ public class Secretario extends JFrame {
 		
 		registrarReparacion = new JMenuItem("Registrar");
 		reparacion.add(registrarReparacion);
+		
+		JMenu taller = new JMenu("TALLER");
+		menuBar.add(taller);
+		
+		registrarTaller = new JMenuItem("Registrar");
+		taller.add(registrarTaller);
 		 
 		
 		
@@ -131,7 +138,7 @@ public class Secretario extends JFrame {
 		this.autoNuevo.addActionListener(vA);
 		this.autoViejo.addActionListener(vA);
 		this.registrarReparacion.addActionListener(vA);
-		 
+		this.registrarTaller.addActionListener(vA);
 	}
 
 	public JButton getRegistrarCliente() {
@@ -158,5 +165,11 @@ public class Secretario extends JFrame {
 		return autoNuevo;
 	}
 	
+	public JMenuItem getRegistrarTaller() {
+		return this.registrarTaller;
+	}
 	
+	public JMenuItem getRegistrarReparacion() {
+		return this.registrarReparacion;
+	}
 }

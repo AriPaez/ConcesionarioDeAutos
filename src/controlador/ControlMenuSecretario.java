@@ -40,10 +40,14 @@ public class ControlMenuSecretario implements ActionListener {
 			cAN.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			cAN.setVisible(true);
 		}
-		else  
+		else if(subMenuElegido==secretario.getRegistrarReparacion())
 		{
 
 			System.out.println("registro reparacion");
+		}
+		else
+		{
+			System.out.println("registrar taller");
 		}
 		
 		 
