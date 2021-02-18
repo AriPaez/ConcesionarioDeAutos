@@ -40,14 +40,15 @@ public class BBDDAutos{
 		try 
 		{
 			CallableStatement registrarAutoNuevo=conexionBBDD.getConexionBBDD().
-			prepareCall("{call registrarAutoNuevo(?,?,?,?,?)}");
+			prepareCall("{call registrarAutoNuevo(?,?,?,?,?,?)}");
 			
 			 
 			registrarAutoNuevo.setString(1,registroAutoNuevo.getMarca());
 			registrarAutoNuevo.setString(2,registroAutoNuevo.getModelo());
-			registrarAutoNuevo.setString(3,registroAutoNuevo.getColor());
-			registrarAutoNuevo.setString(4,registroAutoNuevo.getCantidad());
-			registrarAutoNuevo.setString(5,registroAutoNuevo.getRutaDeImagen());
+			registrarAutoNuevo.setString(3,registroAutoNuevo.getMatriculaAutoNuevo());
+			registrarAutoNuevo.setString(4,registroAutoNuevo.getColor());
+			registrarAutoNuevo.setString(5,registroAutoNuevo.getCantidad());
+			registrarAutoNuevo.setString(6,registroAutoNuevo.getRutaDeImagen());
 			registrarAutoNuevo.execute();
 			
 			JOptionPane.showMessageDialog(null,"Registrado exitosamente", "Registro", 1, null);
@@ -114,6 +115,7 @@ public class BBDDAutos{
 		registroAutoNuevo.setModelo("");
 		registroAutoNuevo.setColor("");
 		registroAutoNuevo.setCantidad("");
+		registroAutoNuevo.setMatriculaAutoNuevo("");
 	}
  
 

@@ -22,15 +22,16 @@ public class RegistroAutoNuevo extends JFrame {
 	private JTextField cantidad;
 	private JButton buscarImagenAuto ;
 	private String rutaDeImagen;
+	private JTextField matriculaAutoNuevo;
 	
 	public RegistroAutoNuevo() {
 		
 		getContentPane().setLayout(null);
 		
 		JPanel laminaPrincipal = new JPanel();
-		setSize(315,390);
+		setSize(315,430);
 		setLocationRelativeTo(null);
-		laminaPrincipal.setBounds(0, 0, 299, 351);
+		laminaPrincipal.setBounds(0, 0, 299, 391);
 		getContentPane().add(laminaPrincipal);
 		laminaPrincipal.setLayout(null);
 		
@@ -51,7 +52,7 @@ public class RegistroAutoNuevo extends JFrame {
 		
 		JLabel labelColor = new JLabel("COLOR");
 		labelColor.setFont(new Font("Arial", Font.BOLD, 12));
-		labelColor.setBounds(31, 151, 84, 20);
+		labelColor.setBounds(31, 195, 84, 20);
 		laminaPrincipal.add(labelColor);
 		
 		marca = new JTextField();
@@ -66,36 +67,46 @@ public class RegistroAutoNuevo extends JFrame {
 		
 		color = new JTextField();
 		color.setColumns(10);
-		color.setBounds(160, 151, 129, 20);
+		color.setBounds(160, 195, 129, 20);
 		laminaPrincipal.add(color);
 		
 		registrarAutoNuevo = new JButton("REGISTRAR");
-		registrarAutoNuevo.setBounds(20, 306, 121, 23);
+		registrarAutoNuevo.setBounds(20, 345, 121, 23);
 		laminaPrincipal.add(registrarAutoNuevo);
 		
 		cancelar = new JButton("CANCELAR");
-		cancelar.setBounds(168, 306, 121, 23);
+		cancelar.setBounds(168, 345, 121, 23);
 		laminaPrincipal.add(cancelar);
 		
 		JLabel labelCantidad = new JLabel("CANTIDAD");
 		labelCantidad.setFont(new Font("Arial", Font.BOLD, 12));
-		labelCantidad.setBounds(31, 207, 84, 20);
+		labelCantidad.setBounds(31, 242, 84, 20);
 		laminaPrincipal.add(labelCantidad);
 		
 		cantidad = new JTextField();
 		cantidad.setColumns(10);
-		cantidad.setBounds(160, 207, 129, 20);
+		cantidad.setBounds(160, 242, 129, 20);
 		laminaPrincipal.add(cantidad);
 		
 		JLabel labelImagenAuto = new JLabel("IMAGEN AUTO");
 		labelImagenAuto.setFont(new Font("Arial", Font.BOLD, 12));
-		labelImagenAuto.setBounds(31, 256, 84, 20);
+		labelImagenAuto.setBounds(31, 291, 84, 20);
 		laminaPrincipal.add(labelImagenAuto);
 		
 		buscarImagenAuto = new JButton("");
 		buscarImagenAuto.setIcon(new ImageIcon("C:\\Users\\ArielPaez\\Desktop\\proyectosJava\\concesionarioDeAuto\\ConcesionarioDeAutos\\src\\icon\\registroAuto\\buscar.jpg"));
-		buscarImagenAuto.setBounds(160, 253, 20, 20);
+		buscarImagenAuto.setBounds(160, 288, 20, 20);
 		laminaPrincipal.add(buscarImagenAuto);
+		
+		JLabel labelMatricula = new JLabel("MATR\u00CDCULA");
+		labelMatricula.setFont(new Font("Arial", Font.BOLD, 12));
+		labelMatricula.setBounds(31, 147, 84, 20);
+		laminaPrincipal.add(labelMatricula);
+		
+		matriculaAutoNuevo = new JTextField();
+		matriculaAutoNuevo.setColumns(10);
+		matriculaAutoNuevo.setBounds(160, 147, 129, 20);
+		laminaPrincipal.add(matriculaAutoNuevo);
 		
 		ControlRegistroAuto cAN=new ControlRegistroAuto(this);
 		
@@ -158,6 +169,14 @@ public class RegistroAutoNuevo extends JFrame {
 
 	public void setRutaDeImagen(String rutaDeImagen) {
 		this.rutaDeImagen = rutaDeImagen;
+	}
+
+	public String getMatriculaAutoNuevo() {
+		return matriculaAutoNuevo.getText();
+	}
+
+	public void setMatriculaAutoNuevo(String matriculaAutoNuevo) {
+		this.matriculaAutoNuevo.setText(matriculaAutoNuevo);
 	}
 
     

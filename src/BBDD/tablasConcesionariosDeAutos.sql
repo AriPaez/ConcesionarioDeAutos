@@ -43,6 +43,7 @@ CREATE TABLE autoMovil
 	idAutoMovil INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
 	dniCliente VARCHAR(8),
 	marca VARCHAR(25) NOT NULL,
+	matricula VARCHAR(7) UNIQUE NOT NULL,
 	imagenAuto VARCHAR(200)
 	FOREIGN KEY(dniCliente) REFERENCES cliente(dniCliente)
 )
@@ -72,7 +73,6 @@ CREATE TABLE autoViejo
 (
 	idViejoAuto  INT  PRIMARY KEY IDENTITY(1,1) NOT NULL,
 	idAutoMovil INT NOT NULL,
-	matricula VARCHAR(7) NOT NULL,
 	cantidadKilometros INT NOT NULL,
 	dniDueñoAnterior VARCHAR(8) NOT NULL
 	FOREIGN KEY(idAutoMovil) REFERENCES autoMovil(idAutoMovil)

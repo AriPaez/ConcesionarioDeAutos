@@ -56,21 +56,21 @@ EXEC registrarSecretario '',''
 --Registrar auto nuevo.
 
 ALTER PROCEDURE registrarAutoNuevo(@marca VARCHAR(30),@modelo VARCHAR(30),
-@color VARCHAR(15),@cantidad INT,@rutaImagenAuto VARCHAR(200))
+@matricula VARCHAR(7),@color VARCHAR(15),@cantidad INT,@rutaImagenAuto VARCHAR(200))
 AS
 BEGIN TRY
 	IF (@marca IS NULL OR 
 	@modelo IS NULL OR @color IS NULL OR @cantidad IS NULL OR @marca=''
-	OR @modelo='' OR @color='' OR @cantidad='')
+	OR @modelo='' OR @color='' OR @cantidad='' OR @matricula='')
 		BEGIN 
 			RAISERROR('CAMPOS VACIOS. INGRESE UN VALOR!',14,1)
 		END
 	ELSE
 			--Insersion de autoMovil
 			INSERT INTO [dbo].[autoMovil]
-					   (marca,imagenAuto)
+					   (marca,matricula,imagenAuto)
 				 VALUES
-					   (@marca,@rutaImagenAuto)
+					   (@marca,@matricula,@rutaImagenAuto)
 			--Insersion de modelo
 			INSERT INTO [dbo].[modelo]
 					   ([idAutoMovil]
@@ -112,9 +112,9 @@ BEGIN TRY
 	ELSE
 			--Insersion de autoMovil
 			INSERT INTO [dbo].[autoMovil]
-					   (marca,imagenAuto)
+					   (marca,matricula,imagenAuto)
 				 VALUES
-					   (@marca,@rutaImagenAuto)
+					   (@marca,@matricula,@rutaImagenAuto)
 			--Insersion de modelo
 			INSERT INTO [dbo].[modelo]
 					   ([idAutoMovil]
@@ -128,12 +128,10 @@ BEGIN TRY
 			--Insersion de auto viejo.
 			INSERT INTO [dbo].[autoViejo]
 					   ([idAutoMovil]
-					   ,[matricula]
 					   ,[cantidadKilometros]
 					   ,[dniDueñoAnterior])
 				 VALUES
 					   ((SELECT MAX(idAutoMovil) FROM autoMovil), 
-					   @matricula, 
 					   @cantidadKilometros,
 					   @dniDueñoAnterior)
 END TRY
@@ -380,9 +378,9 @@ on(aM.idAutoMovil=aN.idAutoMovil)
  
 
  --mostrar todos los campos de la entidad auto viejo.
- CREATE PROCEDURE mostrarAutoViejo (@marca VARCHAR(30),@modelo VARCHAR(30))
+ ALTER PROCEDURE mostrarAutoViejo (@marca VARCHAR(30),@modelo VARCHAR(30))
 AS
- SELECT aM.marca,m.modelo,m.color,aV.matricula,aV.cantidadKilometros,aV.dniDueñoAnterior
+ SELECT aM.marca,m.modelo,m.color,aM.matricula,aV.cantidadKilometros,aV.dniDueñoAnterior
  FROM autoMovil AS aM INNER JOIN modelo AS m
  ON(m.idAutoMovil=aM.idAutoMovil) INNER JOIN
  autoViejo AS aV ON(aV.idAutoMovil=m.idAutoMovil)
