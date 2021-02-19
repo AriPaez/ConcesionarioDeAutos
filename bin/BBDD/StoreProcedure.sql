@@ -56,21 +56,21 @@ EXEC registrarSecretario '',''
 --Registrar auto nuevo.
 
 ALTER PROCEDURE registrarAutoNuevo(@marca VARCHAR(30),@modelo VARCHAR(30),
-@color VARCHAR(15),@cantidad INT,@rutaImagenAuto VARCHAR(200))
+@matricula VARCHAR(7),@color VARCHAR(15),@cantidad INT,@rutaImagenAuto VARCHAR(200))
 AS
 BEGIN TRY
 	IF (@marca IS NULL OR 
 	@modelo IS NULL OR @color IS NULL OR @cantidad IS NULL OR @marca=''
-	OR @modelo='' OR @color='' OR @cantidad='')
+	OR @modelo='' OR @color='' OR @cantidad='' OR @matricula='')
 		BEGIN 
 			RAISERROR('CAMPOS VACIOS. INGRESE UN VALOR!',14,1)
 		END
 	ELSE
 			--Insersion de autoMovil
 			INSERT INTO [dbo].[autoMovil]
-					   (marca,imagenAuto)
+					   (marca,matricula,imagenAuto)
 				 VALUES
-					   (@marca,@rutaImagenAuto)
+					   (@marca,@matricula,@rutaImagenAuto)
 			--Insersion de modelo
 			INSERT INTO [dbo].[modelo]
 					   ([idAutoMovil]
@@ -112,9 +112,9 @@ BEGIN TRY
 	ELSE
 			--Insersion de autoMovil
 			INSERT INTO [dbo].[autoMovil]
-					   (marca,imagenAuto)
+					   (marca,matricula,imagenAuto)
 				 VALUES
-					   (@marca,@rutaImagenAuto)
+					   (@marca,@matricula,@rutaImagenAuto)
 			--Insersion de modelo
 			INSERT INTO [dbo].[modelo]
 					   ([idAutoMovil]
@@ -128,12 +128,10 @@ BEGIN TRY
 			--Insersion de auto viejo.
 			INSERT INTO [dbo].[autoViejo]
 					   ([idAutoMovil]
-					   ,[matricula]
 					   ,[cantidadKilometros]
 					   ,[dniDueñoAnterior])
 				 VALUES
 					   ((SELECT MAX(idAutoMovil) FROM autoMovil), 
-					   @matricula, 
 					   @cantidadKilometros,
 					   @dniDueñoAnterior)
 END TRY
@@ -380,9 +378,9 @@ on(aM.idAutoMovil=aN.idAutoMovil)
  
 
  --mostrar todos los campos de la entidad auto viejo.
- CREATE PROCEDURE mostrarAutoViejo (@marca VARCHAR(30),@modelo VARCHAR(30))
+ ALTER PROCEDURE mostrarAutoViejo (@marca VARCHAR(30),@modelo VARCHAR(30))
 AS
- SELECT aM.marca,m.modelo,m.color,aV.matricula,aV.cantidadKilometros,aV.dniDueñoAnterior
+ SELECT aM.marca,m.modelo,m.color,aM.matricula,aV.cantidadKilometros,aV.dniDueñoAnterior
  FROM autoMovil AS aM INNER JOIN modelo AS m
  ON(m.idAutoMovil=aM.idAutoMovil) INNER JOIN
  autoViejo AS aV ON(aV.idAutoMovil=m.idAutoMovil)
@@ -453,4 +451,95 @@ AS
  WHERE marca=@marca AND modelo=@modelo AND color=@color 
 
 
- --Mostrar iamgenAutoViejo
+ --registrar taller
+ ALTER PROCEDURE registrarTaller(@idTaller VARCHAR(30),@descripcion VARCHAR(100))
+ AS
+ BEGIN TRY
+	IF (@idTaller='')
+	BEGIN 
+			RAISERROR('CAMPO VACIO. INGRESE ID TALLER !',14,1)
+	END
+	ELSE IF (@descripcion='')
+	BEGIN
+		RAISERROR('CAMPO VACIO. INGRESE DESCRIPCIÓN !',14,1)
+	END
+	ELSE IF EXISTS ( SELECT idTaller FROM taller WHERE idTaller=@idTaller)
+	BEGIN
+			RAISERROR('ERROR. YA EXISTE EL CÓDIGO TALLER!',14,1)	
+	END
+	ELSE IF (@descripcion='' OR @idTaller='')
+	BEGIN
+			RAISERROR('ERROR. CAMPOS VACIOS!',14,1)	
+	END
+	ELSE
+	BEGIN
+		INSERT INTO [dbo].[taller]
+			   ([idTaller]
+			   ,[descripción])
+		 VALUES
+			   (@idTaller
+			   ,@descripcion)
+	END
+ END TRY
+ BEGIN CATCH
+		DECLARE @mensajeDeError VARCHAR(100);
+		SELECT @mensajeDeError=ERROR_MESSAGE()
+		RAISERROR(@mensajeDeError,14,1);
+
+ END CATCH
+
+ --registrar reparacion
+
+ALTER PROCEDURE registrarReparacion(@cantidadHorasArreglo TIME,
+@matricula VARCHAR(7),@dniMecanico VARCHAR(8))
+AS
+BEGIN TRY
+	DECLARE @idMatriculaDeAuto INT
+	IF(@matricula='')
+	BEGIN
+			RAISERROR('CAMPO VACÍO. INGRESE MATRICULA',14,1)
+	END
+	ELSE IF(@dniMecanico='')
+	BEGIN
+			RAISERROR('CAMPO VACÍO. INGRESE DNI DEL MÉCANICO',14,1)
+	END
+	ELSE IF(ISNUMERIC(@dniMecanico)=0)
+	BEGIN
+			RAISERROR('ERROR. EL DNI DEBE SER ENTERO',14,1)
+	END
+	ELSE IF(LEN(@dniMecanico)<>8)
+	BEGIN
+			RAISERROR('ERROR. EL DNI DEBE SER DE 8 DÍGITOS',14,1)
+	END
+	ELSE IF(DATEPART(hh,@cantidadHorasArreglo)=0)
+	BEGIN
+			RAISERROR('ERROR. INGRESE LA CANTIDAD DE HORAS DE ARREGLO',14,1)
+	END
+	ELSE IF NOT EXISTS(SELECT @dniMecanico FROM mecanico WHERE dniMecanico=@dniMecanico)
+	BEGIN
+			RAISERROR('ERROR. NO EXISTE EL DNI DEL MÉCANICO INGRESADO',14,1)
+	END
+	IF NOT EXISTS( SELECT idAutoMovil  FROM autoMovil WHERE matricula=@matricula)
+	BEGIN
+			RAISERROR('ERROR. NO EXISTE LA MATRÍCULA INGRESADA',14,1)
+	END
+	ELSE
+	BEGIN 
+		SELECT @idMatriculaDeAuto=idAutoMovil  FROM autoMovil 
+		WHERE matricula=@matricula
+
+		INSERT INTO [dbo].[reparacion]
+			   ([cantidadHorasDeArreglo]
+			   ,[idAutoMovil]
+			   ,[dniMecanico])
+		 VALUES
+			   (@cantidadHorasArreglo,@idMatriculaDeAuto,@dniMecanico)
+	END
+
+END TRY
+BEGIN CATCH
+		DECLARE @mensajeDeError VARCHAR(100);
+		SELECT @mensajeDeError=ERROR_MESSAGE()
+		RAISERROR(@mensajeDeError,14,1);
+END CATCH
+

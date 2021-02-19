@@ -1,6 +1,7 @@
 package modelo;
 
 import java.sql.CallableStatement;
+import java.sql.Date;
 import java.sql.SQLException;
 
 import javax.swing.JFrame;
@@ -29,11 +30,11 @@ public class BBDDReparacionAuto {
 		try 
 		{
 			CallableStatement registrarReparacion = conexionBBDD.getConexionBBDD()
-			.prepareCall("{call registrarReparacion(?,?,?)}");
-			 
+			.prepareCall("{call registrarReparacion(?,?,?,?)}"); 
 			registrarReparacion.setTime(1,reparacionAuto.getCantidadHoras());
-			registrarReparacion.setString(2,reparacionAuto.getMatriculaAutoReparado());
-			registrarReparacion.setString(3,reparacionAuto.getDniMecanico());
+			registrarReparacion.setDate(2,new Date(reparacionAuto.getFechaReparacion().getTime()));
+			registrarReparacion.setString(3,reparacionAuto.getMatriculaAutoReparado());
+			registrarReparacion.setString(4,reparacionAuto.getDniMecanico());
 			
 			registrarReparacion.execute();
 			
@@ -54,6 +55,12 @@ public class BBDDReparacionAuto {
 					+ "ERROR. INGRESE VALORES ENTEROS EN hs y min.","BBDD", 2, null);
 			reseteoJTextFieldReparacionAuto();
 		}
+		catch(NullPointerException e)
+		{
+			JOptionPane.showMessageDialog(null,"NO HA INGRESADO LA FECHA", "ERROR", 2, null);
+			
+		}
+		 
 		
 	}
 	

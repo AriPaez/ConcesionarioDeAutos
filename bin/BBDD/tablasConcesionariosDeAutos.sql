@@ -43,6 +43,7 @@ CREATE TABLE autoMovil
 	idAutoMovil INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
 	dniCliente VARCHAR(8),
 	marca VARCHAR(25) NOT NULL,
+	matricula VARCHAR(7) UNIQUE NOT NULL,
 	imagenAuto VARCHAR(200)
 	FOREIGN KEY(dniCliente) REFERENCES cliente(dniCliente)
 )
@@ -72,7 +73,6 @@ CREATE TABLE autoViejo
 (
 	idViejoAuto  INT  PRIMARY KEY IDENTITY(1,1) NOT NULL,
 	idAutoMovil INT NOT NULL,
-	matricula VARCHAR(7) NOT NULL,
 	cantidadKilometros INT NOT NULL,
 	dniDueñoAnterior VARCHAR(8) NOT NULL
 	FOREIGN KEY(idAutoMovil) REFERENCES autoMovil(idAutoMovil)
@@ -87,4 +87,43 @@ CREATE TABLE reparacion
 	FOREIGN KEY(idAutoMovil) REFERENCES autoMovil(idAutoMovil),
 	FOREIGN KEY(dniMecanico) REFERENCES mecanico(dniMecanico)
 )
+
+--registrar reparacion
+
+CREATE PROCEDURE registrarReparacion(@cantidadHorasArreglo TIME,
+@matricula VARCHAR(7),@dniMecanico VARCHAR(8))
+AS
+BEGIN TRY
+	IF(@matricula='')
+	BEGIN
+			RAISERROR('CAMPO VACÍO. INGRESE MATRICULA',14,1)
+	END
+	ELSE IF(@dniMecanico='')
+	BEGIN
+			RAISERROR('CAMPO VACÍO. INGRESE MÉCANICO',14,1)
+	END
+	ELSE IF(ISNUMERIC(@dniMecanico)=0)
+	BEGIN
+			RAISERROR('ERROR. EL DNI DEBE SER ENTERO',14,1)
+	END
+	ELSE IF(LEN(@dniMecanico)<>8)
+	BEGIN
+			RAISERROR('ERROR. EL DNI DEBE SER DE 8 DÍGITOS',14,1)
+	END
+	ELSE IF(@cantidadHorasArreglo=0)
+	BEGIN
+			RAISERROR('ERROR. INGRESE LA CANTIDAD DE HORAS DE ARREGLO',14,1)
+	END
+	ELSE IF NOT EXISTS(SELECT idAutoMovil  FROM autoMovil WHERE matricula=@matricula)
+	BEGIN
+			RAISERROR('ERROR. LA MATRÍCULA INGRESA NO EXISTE EN LA BBDD',14,1)
+	END
+	ELSE 
+	BEGIN
+			RAISERROR('ERROR. NO EXISTE LA MATRICULA',14,1)
+	END
+END TRY
+BEGIN CATCH
+
+END CATCH
 
