@@ -178,7 +178,4 @@ public class RegistroAutoNuevo extends JFrame {
 	public void setMatriculaAutoNuevo(String matriculaAutoNuevo) {
 		this.matriculaAutoNuevo.setText(matriculaAutoNuevo);
 	}
-
-    
-	
 }

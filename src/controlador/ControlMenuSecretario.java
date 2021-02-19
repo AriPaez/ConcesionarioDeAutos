@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import vista.CompraAutoNuevo;
 import vista.CompraAutoViejo;
 import vista.RegistroTaller;
+import vista.ReparacionAuto;
 import vista.Secretario;
 
 public class ControlMenuSecretario implements ActionListener {
@@ -43,8 +44,11 @@ public class ControlMenuSecretario implements ActionListener {
 		}
 		else if(subMenuElegido==secretario.getRegistrarReparacion())
 		{
-
-			System.out.println("registro reparacion");
+			secretario.dispose();
+			ReparacionAuto rA=new ReparacionAuto();
+			rA.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			rA.setVisible(true);
+			 
 		}
 		else
 		{
