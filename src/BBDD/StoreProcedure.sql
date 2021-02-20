@@ -491,7 +491,7 @@ AS
  --registrar reparacion
 
 ALTER PROCEDURE registrarReparacion(@cantidadHorasArreglo TIME,
-,@fechaReparacion DATE,@matricula VARCHAR(7),@dniMecanico VARCHAR(8))
+@fechaReparacion DATE,@matricula VARCHAR(7),@dniMecanico VARCHAR(8))
 AS
 BEGIN TRY
 	DECLARE @idMatriculaDeAuto INT

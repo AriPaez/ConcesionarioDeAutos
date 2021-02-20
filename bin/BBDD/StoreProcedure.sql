@@ -491,11 +491,15 @@ AS
  --registrar reparacion
 
 ALTER PROCEDURE registrarReparacion(@cantidadHorasArreglo TIME,
-@matricula VARCHAR(7),@dniMecanico VARCHAR(8))
+,@fechaReparacion DATE,@matricula VARCHAR(7),@dniMecanico VARCHAR(8))
 AS
 BEGIN TRY
 	DECLARE @idMatriculaDeAuto INT
-	IF(@matricula='')
+	IF (DATEPART(hh,@cantidadHorasArreglo)=0 AND @matricula='' AND @dniMecanico='')
+	BEGIN	
+			RAISERROR('ERROR.CAMPOS VACÍOS',14,1)
+	END
+	ELSE IF(@matricula='')
 	BEGIN
 			RAISERROR('CAMPO VACÍO. INGRESE MATRICULA',14,1)
 	END
@@ -530,10 +534,11 @@ BEGIN TRY
 
 		INSERT INTO [dbo].[reparacion]
 			   ([cantidadHorasDeArreglo]
+			   ,[fechaReparacion]
 			   ,[idAutoMovil]
 			   ,[dniMecanico])
 		 VALUES
-			   (@cantidadHorasArreglo,@idMatriculaDeAuto,@dniMecanico)
+			   (@cantidadHorasArreglo,@fechaReparacion,@idMatriculaDeAuto,@dniMecanico)
 	END
 
 END TRY
